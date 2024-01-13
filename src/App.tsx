@@ -1,15 +1,14 @@
 import React from 'react';
 import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import './translations/i18n';
+import LoginPage from './pages/Login/Login';
 
 const App = () => {
-  const { t } = useTranslation();
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <div>{t('note')}</div>,
+      element: <LoginPage />,
     },
   ]);
   return <RouterProvider router={router} />;

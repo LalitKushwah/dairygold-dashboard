@@ -1,12 +1,11 @@
 {
   "en": {
     "translation": {
-      "note": "If you are able to see it means translations are working fine"
-    }
-  },
-  "fr": {
-    "translation": {
-      "note": "Bienvenue à React et react-i18next"
+      "username": "Username",
+      "password": "Password",
+      "login": "Login",
+      "usernamePlaceholder": "Enter username here...",
+      "passwordPlaceholder": "Enter password here..."
     }
   }
 }

@@ -1,0 +1,26 @@
+.Login-Container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+}
+.Login-Card {
+  width: 550px;
+  height: 500px;
+}
+.Login-FieldsContainer input,
+.Login-FieldsContainer button {
+  margin: 5px;
+}
+.Login-FieldsImageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Login-FieldsContainer img {
+  border-radius: 50%;
+}
+.Login-FieldsBtnContainer {
+  margin-top: 30px;
+}

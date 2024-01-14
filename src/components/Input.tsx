@@ -1,6 +1,14 @@
 import React from 'react';
 import { Input, InputProps } from 'antd';
 
-export const InputComponent: React.FC<InputProps> = (props) => {
-  return <Input {...props} />;
+interface ExtendedInputProps extends InputProps {
+  ispassword?: boolean;
+}
+
+export const InputComponent: React.FC<ExtendedInputProps> = (props) => {
+  return props?.ispassword ? (
+    <Input.Password {...props} />
+  ) : (
+    <Input {...props} />
+  );
 };

@@ -1,8 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import { message } from 'antd';
 import { NavigateFunction } from 'react-router-dom';
-
-const BASE_URL = process.env.API_URL;
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 let navigate: NavigateFunction | null = null;
 
 export const setNavigate = (nav: NavigateFunction) => {
@@ -48,6 +47,15 @@ export const ApiWithoutToken: AxiosInstance = axios.create({
   baseURL: BASE_URL,
 });
 
+ApiWithoutToken.interceptors.request.use(
+  (config) => {
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 ApiWithoutToken.interceptors.response.use(
   (response) => {
     return response;
@@ -59,6 +67,7 @@ ApiWithoutToken.interceptors.response.use(
       }
       message.error('Token is expired/missing. Please login first.');
     }
+    message.error(error.message);
 
     return Promise.reject(error);
   }

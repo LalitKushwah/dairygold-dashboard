@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Components from '../../components';
 import Logo from '../../assets/images/dairy_gold_logo.png';
 import './Login.css';
 import { useTranslation } from 'react-i18next';
+import { Form, FormInstance } from 'antd';
+import { LoginForm } from './Form';
 
 const IMAGE_DIMENSIONS = 150;
-const FIELDS_LABELS_SIZE = 5;
 
-const LoginPage = () => {
+interface LoginFormValues {
+  username: string;
+  password: string;
+}
+
+const LoginPage: React.FC = () => {
   const { t } = useTranslation();
+  const [form] = Form.useForm<LoginFormValues>();
+  const [isValuePresent, setIsValuePresent] = useState<boolean>(false);
+
+  // Function to check if both username and password fields are filled
+  const onValuesChange = () => {
+    const values = form.getFieldsValue();
+    const valuePresent = values?.username && values?.password ? true : false;
+    setIsValuePresent(valuePresent);
+  };
+
   return (
     <div className='Login-Container'>
       <Components.Card
@@ -24,30 +40,11 @@ const LoginPage = () => {
               preview={false}
             />
           </div>
-          <div>
-            <Components.Title level={FIELDS_LABELS_SIZE}>
-              {t('username')}
-            </Components.Title>
-            <Components.Input
-              placeholder={t('usernamePlaceholder')}
-              size='large'></Components.Input>
-          </div>
-          <div>
-            <Components.Title level={FIELDS_LABELS_SIZE}>
-              {t('password')}
-            </Components.Title>
-            <Components.Input
-              placeholder={t('passwordPlaceholder')}
-              size='large'></Components.Input>
-          </div>
-          <div className='Login-FieldsBtnContainer'>
-            <Components.Button
-              type='primary'
-              block
-              size='large'>
-              {t('login')}
-            </Components.Button>
-          </div>
+          <LoginForm
+            form={form}
+            onChange={onValuesChange}
+            isValuePresent={isValuePresent}
+          />
         </div>
       </Components.Card>
     </div>

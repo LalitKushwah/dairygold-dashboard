@@ -64,6 +64,7 @@ export const LoginForm: React.FC<LoginFormIProps> = ({
           <Components.Input
             placeholder={t('usernamePlaceholder')}
             size='large'
+            name='username'
           />
         </Components.FormItem>
       </div>
@@ -78,6 +79,7 @@ export const LoginForm: React.FC<LoginFormIProps> = ({
             ispassword={true}
             placeholder={t('passwordPlaceholder')}
             size='large'
+            name='password'
           />
         </Components.FormItem>
       </div>
@@ -88,7 +90,8 @@ export const LoginForm: React.FC<LoginFormIProps> = ({
           size='large'
           disabled={!isValuePresent}
           onClick={onLogin}
-          loading={isLoading}>
+          loading={isLoading}
+          id='login-btn'>
           {t('login')}
         </Components.Button>
       </div>

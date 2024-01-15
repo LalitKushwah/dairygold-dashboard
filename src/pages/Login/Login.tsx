@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Components from '../../components';
 import Logo from '../../assets/images/dairy_gold_logo.png';
 import './Login.css';
-import { useTranslation } from 'react-i18next';
-import { Form, FormInstance } from 'antd';
+import { Form } from 'antd';
 import { LoginForm } from './Form';
 
 const IMAGE_DIMENSIONS = 150;
@@ -14,7 +13,6 @@ interface LoginFormValues {
 }
 
 const LoginPage: React.FC = () => {
-  const { t } = useTranslation();
   const [form] = Form.useForm<LoginFormValues>();
   const [isValuePresent, setIsValuePresent] = useState<boolean>(false);
 

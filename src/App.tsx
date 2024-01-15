@@ -12,6 +12,7 @@ import './translations/i18n';
 import LoginPage from './pages/Login/Login';
 import { HomePage } from './pages/Home/Home';
 import { setNavigate } from './services/Api';
+import { OrdersPage } from './pages/Orders/Order';
 
 const Root = () => {
   const navigate = useNavigate();
@@ -35,6 +36,10 @@ const Root = () => {
       <Route
         path='/home'
         element={<HomePage />}
+      />
+      <Route
+        path='/orders'
+        element={<OrdersPage />}
       />
     </Routes>
   );

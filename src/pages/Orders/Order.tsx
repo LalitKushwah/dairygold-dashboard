@@ -1,13 +1,12 @@
 import React from 'react';
 import NavBar from '../../common/NavBar';
 import { Layout } from 'antd';
-
 const { Content } = Layout;
 
-export const HomePage: React.FC = () => {
+export const OrdersPage: React.FC = () => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <NavBar activeKey='1'></NavBar>
+      <NavBar activeKey={'2'}></NavBar>
       <Layout>
         <Content style={{ margin: '24px 16px 0' }}>
           <div
@@ -15,7 +14,7 @@ export const HomePage: React.FC = () => {
               padding: 24,
               minHeight: 360,
             }}>
-            Home Page
+            Order Page
           </div>
         </Content>
       </Layout>

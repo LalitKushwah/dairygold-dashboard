@@ -4,6 +4,7 @@ import { ButtonComponent } from './Button';
 import { ImageComponent } from './Image';
 import { TextComponent, TitleComponent } from './Text';
 import { FormComponent, FormItemComponent } from './Form';
+import { DividerComponent } from './Divider';
 
 export default {
   Input: InputComponent,
@@ -14,4 +15,5 @@ export default {
   Title: TitleComponent,
   Form: FormComponent,
   FormItem: FormItemComponent,
+  Divider: DividerComponent,
 };

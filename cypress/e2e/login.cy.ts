@@ -28,6 +28,4 @@ describe('Login Form', () => {
     // Check if an error message is displayed
     cy.get('.ant-message-error').should('be.visible');
   });
-
-  // Add more test cases as needed
 });

@@ -1,0 +1,20 @@
+.PageHeader-Container {
+  height: 120px;
+  display: flex;
+  background-color: #e7e5e1;
+  align-items: center;
+  justify-content: space-between;
+}
+.PageHeader-TitleContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  align-items: flex-start;
+}
+.PageHeader-CTA {
+  justify-self: flex-end;
+  margin-right: 20px;
+}
+.PageHeader-CTA button {
+  margin: 5px;
+}

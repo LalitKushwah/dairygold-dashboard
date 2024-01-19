@@ -1,6 +1,7 @@
 import React from 'react';
-import NavBar from '../../common/NavBar';
+import NavBar from '../../common/NavBar/NavBar';
 import { Layout } from 'antd';
+import { PageHeader } from '../../common/PageHeader/PageHeader';
 const { Content } = Layout;
 
 export const OrdersPage: React.FC = () => {
@@ -8,15 +9,10 @@ export const OrdersPage: React.FC = () => {
     <Layout style={{ minHeight: '100vh' }}>
       <NavBar activeKey={'2'}></NavBar>
       <Layout>
-        <Content style={{ margin: '24px 16px 0' }}>
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-            }}>
-            Order Page
-          </div>
-        </Content>
+        <PageHeader
+          title='Orders'
+          primaryBtnText='Export Orders'
+        />
       </Layout>
     </Layout>
   );

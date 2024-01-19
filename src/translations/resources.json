@@ -5,7 +5,10 @@
       "password": "Password",
       "login": "Login",
       "usernamePlaceholder": "Enter username here...",
-      "passwordPlaceholder": "Enter password here..."
+      "passwordPlaceholder": "Enter password here...",
+      "welcomeMsg": "Hello",
+      "welcomeMsgDescription": "We have few things for you to look at.",
+      "logoutBtnLabel": "Logout"
     }
   }
 }

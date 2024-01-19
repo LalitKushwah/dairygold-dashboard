@@ -1,13 +1,6 @@
 import React from 'react';
 import './App.css';
-import {
-  BrowserRouter,
-  createBrowserRouter,
-  Route,
-  RouterProvider,
-  Routes,
-  useNavigate,
-} from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
 import './translations/i18n';
 import LoginPage from './pages/Login/Login';
 import { HomePage } from './pages/Home/Home';
@@ -17,16 +10,6 @@ import { OrdersPage } from './pages/Orders/Order';
 const Root = () => {
   const navigate = useNavigate();
   setNavigate(navigate);
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <LoginPage />,
-    },
-    {
-      path: '/home',
-      element: <HomePage />,
-    },
-  ]);
   return (
     <Routes>
       <Route

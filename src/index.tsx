@@ -15,6 +15,7 @@ root.render(
         token: {
           // Seed Token
           colorPrimary: '#f5b208',
+          colorTextSecondary: 'white',
           // Alias Token
           colorBgContainer: 'white',
         },

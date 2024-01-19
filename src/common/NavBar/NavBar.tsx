@@ -14,8 +14,8 @@ import {
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Layout, Menu } from 'antd';
-import Logo from '../assets/images/dairy_gold_logo.png';
-import Components from '../components';
+import Logo from '../../assets/images/dairy_gold_logo.png';
+import Components from '../../components';
 import { useNavigate } from 'react-router-dom';
 
 const { Sider } = Layout;

@@ -1,0 +1,16 @@
+.Orders-Summary-Container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.Orders-Summary-Card {
+  width: 250px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Orders-Summary-CardItem {
+  /* padding: 10px; */
+}

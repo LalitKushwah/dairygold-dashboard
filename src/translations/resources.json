@@ -8,7 +8,20 @@
       "passwordPlaceholder": "Enter password here...",
       "welcomeMsg": "Hello",
       "welcomeMsgDescription": "We have few things for you to look at.",
-      "logoutBtnLabel": "Logout"
+      "logoutBtnLabel": "Logout",
+      "dashboard": {
+        "tgtActCardTitle": "Insights - Target VS Achievement",
+        "landing": "Landing",
+        "ftdAch": "FTD Achieved",
+        "mtdAch": "MTD Achieved",
+        "percantageAch": "% Achieved",
+        "lmtdAch": "LMTD Achieved",
+        "percanageGrowthOverLmtd": "% Growth over LMTD",
+        "taget": "Target",
+        "balanceToDo": "Balance To Do",
+        "lymtdAch": "LYMTD Achived",
+        "percanageGrowthOverLymtd":"% Growth over LYMTD"
+      }
     }
   }
 }

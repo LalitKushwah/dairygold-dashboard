@@ -2,6 +2,8 @@ import React from 'react';
 import { useMetrics } from '../../hooks/useMetrics';
 import Components from '../../components';
 import './OrdersSummary.css';
+import { UserDashboardFields } from '../../models/UserLoginModel';
+import { DasboardEntityCountsResponseBody } from '../../models/DasboardEntityCountsReponseModel';
 
 interface OrderCardIProps {
   title: string;
@@ -36,8 +38,15 @@ const OrderCard: React.FC<OrderCardIProps> = ({
   );
 };
 
-export const OrdersSummary = () => {
-  const { entityCountsInfo, isLoading } = useMetrics();
+interface OrdersSummaryIProps {
+  entityCountsInfo: DasboardEntityCountsResponseBody;
+  isLoading: boolean;
+}
+
+export const OrdersSummary: React.FC<OrdersSummaryIProps> = ({
+  entityCountsInfo,
+  isLoading,
+}) => {
   return (
     <div className='Orders-Summary-Container'>
       <OrderCard

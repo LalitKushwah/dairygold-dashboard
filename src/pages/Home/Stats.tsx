@@ -8,6 +8,7 @@ import {
   TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
+import { DasboardEntityCountsResponseBody } from '../../models/DasboardEntityCountsReponseModel';
 
 interface StatsCardIProps {
   title: string;
@@ -45,8 +46,15 @@ const StatsCard: React.FC<StatsCardIProps> = ({
   );
 };
 
-export const Stats = () => {
-  const { entityCountsInfo, isLoading } = useMetrics();
+interface StatsIProps {
+  entityCountsInfo: DasboardEntityCountsResponseBody;
+  isLoading: boolean;
+}
+
+export const Stats: React.FC<StatsIProps> = ({
+  entityCountsInfo,
+  isLoading,
+}) => {
   return (
     <div className='Stats-Container'>
       <StatsCard

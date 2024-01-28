@@ -1,76 +1,219 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Components from '../../components';
-import { Card, Col, Row, Select } from 'antd';
+import { Card, Col, Row, Select, message } from 'antd';
+import {
+  TgtAchFields,
+  UserDashboardFields,
+  UserData,
+  UserType,
+  getEmptyUserStructure,
+} from '../../models/UserLoginModel';
+import {
+  getAssociatedSalesmansList,
+  getSalesmansList,
+  getUserDashboard,
+} from '../../services/user';
+import { fetchParentCategories } from '../../services/category';
+import { calculateTgtAchData } from './util';
+import { useTranslation } from 'react-i18next';
+import {
+  Category,
+  getEmptyCategoryStructure,
+} from '../../models/CategoryModel';
 
 export const TgtVsAct = () => {
+  const { t } = useTranslation();
+  const [loggedInUser, setLoggedInUser] = useState<UserData>();
+  const [cateogoryList, setCategoryList] = useState<Category[]>([]);
+  const [salesmanList, setSalesmanList] = useState<UserData[]>([]);
+  const [selectedSMExternalId, setSelectedSMExternalId] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [userDashboardData, setUserDashboardData] =
+    useState<UserDashboardFields>();
+  const [data, setData] = useState<TgtAchFields>({
+    target: 0,
+    achieve: 0,
+    achievedPercentage: 0,
+    balanceToDo: 0,
+    creditLimit: 0,
+    currentOutStanding: 0,
+    thirtyDaysOutStanding: 0,
+    availableCreditLimit: 0,
+    lmtd: 0,
+    lymtd: 0,
+    lmtdGrowthPercentage: 0,
+    lymtdGrowthPercentage: 0,
+    ftd: 0,
+  });
+
+  useEffect(() => {
+    fetchLoggedInUserDetails();
+  }, []);
+
+  useEffect(() => {
+    const isUserDetailExists =
+      loggedInUser && Object.keys(loggedInUser || {}).length;
+    if (isUserDetailExists) {
+      fetchSalesmanDataList();
+      fetchParentCategoryList();
+      getTgtVsAchieveData();
+    }
+  }, [loggedInUser]);
+
+  useEffect(() => {
+    getTgtVsAchieveData();
+  }, [selectedSMExternalId]);
+
+  const fetchLoggedInUserDetails = () => {
+    const user = localStorage.getItem('loggedInUser');
+    if (user) {
+      const parsedValue: UserData = JSON.parse(user);
+      setSelectedSMExternalId(parsedValue.externalId);
+      setLoggedInUser(parsedValue);
+    }
+  };
+
+  const fetchSalesmanDataList = () => {
+    const { userType, externalId } = loggedInUser || {};
+    if (userType === UserType.ADMIN_HO) {
+      getSalesmansList().then((response: { data: { body: UserData[] } }) => {
+        const salesmanDataList = response.data.body || [];
+        const userStruct = getEmptyUserStructure();
+        salesmanDataList.unshift({
+          ...userStruct,
+          label: loggedInUser?.name,
+          value: externalId,
+          name: loggedInUser?.name || '',
+          externalId: externalId || '',
+        });
+        salesmanDataList.map((salesman: UserData) => {
+          salesman['label'] = `${salesman.externalId} - ${salesman.name}`;
+          salesman['value'] = salesman.externalId;
+          return salesman;
+        });
+        setSalesmanList(salesmanDataList);
+      });
+    } else {
+      if (externalId) {
+        getAssociatedSalesmansList({ externalId }).then(
+          (response: {
+            data: {
+              body: UserData[];
+            };
+          }) => setSalesmanList(response.data?.body || [])
+        );
+      }
+    }
+  };
+
+  const fetchParentCategoryList = () => {
+    fetchParentCategories({ skip: 0, limit: 20 }).then(
+      (response: { data: { body: Category[] } }) => {
+        const categories = response.data?.body || [];
+        const struct = getEmptyCategoryStructure() || {};
+        categories.unshift({
+          ...struct,
+          label: 'All Categories',
+          value: 'total',
+          name: 'total',
+        });
+        categories.map((category: Category) => {
+          if (category.name !== 'total') {
+            category['label'] = category.name;
+            category['value'] = category.name;
+          }
+          return category;
+        });
+        setCategoryList(categories);
+      }
+    );
+  };
+
+  const getTgtVsAchieveData = () => {
+    setIsLoading(true);
+    if (selectedSMExternalId) {
+      getUserDashboard(selectedSMExternalId)
+        .then((response: { data: { body: UserDashboardFields[] } }) => {
+          const data = response?.data?.body[0];
+          if (data) {
+            setUserDashboardData({ ...data });
+            prepareData('Total', data);
+            setIsLoading(false);
+          }
+        })
+        .catch((ex) => {
+          message.error(ex);
+          setIsLoading(false);
+        });
+    }
+  };
+
+  const prepareData = (selectedValue: string, data: any) => {
+    const preparedData = calculateTgtAchData(selectedValue, data);
+    setData({ ...preparedData });
+  };
+
   return (
-    <div style={{ margin: 15 }}>
+    <div style={{ margin: 10 }}>
       <Components.Card
         hoverable
-        title='Insights - Target VS Achievement'
+        title={t('dashboard.tgtActCardTitle')}
         style={{
-          height: 360,
+          height: 350,
         }}
+        loading={isLoading}
         extra={
           <div style={{ margin: 10 }}>
+            {selectedSMExternalId ? (
+              <Select
+                defaultValue={selectedSMExternalId}
+                style={{ width: 200, marginRight: 20 }}
+                onChange={(externalId) => setSelectedSMExternalId(externalId)}
+                options={salesmanList}
+              />
+            ) : undefined}
             <Select
-              defaultValue='category'
-              style={{ width: 150, marginRight: 5 }}
-              onChange={() => {}}
-              options={[
-                { value: 'category', label: 'All Category' },
-                { value: 'lucy', label: 'Lucy' },
-                { value: 'Yiminghe', label: 'yiminghe' },
-                { value: 'disabled', label: 'Disabled', disabled: true },
-              ]}
-            />
-            <Select
-              defaultValue='users'
-              style={{ width: 150 }}
-              onChange={() => {}}
-              options={[
-                { value: 'users', label: 'Users' },
-                { value: 'lucy', label: 'Lucy' },
-                { value: 'Yiminghe', label: 'yiminghe' },
-                { value: 'disabled', label: 'Disabled', disabled: true },
-              ]}
+              defaultValue={'total'}
+              style={{ width: 200 }}
+              onChange={(value) => prepareData(value, userDashboardData)}
+              options={cateogoryList}
             />
           </div>
         }>
         <Row gutter={16}>
           <Col span={5}>
             <Card
-              title='Landing'
+              title={t('dashboard.landing')}
               bordered={false}>
-              0
+              {data.landing || 0}
             </Card>
           </Col>
           <Col span={5}>
             <Card
-              title='FTD Achieved'
+              title={t('dashboard.ftdAch')}
               bordered={false}>
-              0
+              {data.ftd || 0}
             </Card>
           </Col>
           <Col span={5}>
             <Card
-              title='MTD Achieved'
+              title={t('dashboard.mtdAch')}
               bordered={false}>
-              0
+              {data.achieve || 0}
             </Card>
           </Col>
           <Col span={5}>
             <Card
-              title='% Achieved'
+              title={t('dashboard.percantageAch')}
               bordered={false}>
-              0
+              {data.achievedPercentage || 0}
             </Card>
           </Col>
           <Col span={4}>
             <Card
-              title='LMTD Achieved'
+              title={t('dashboard.lmtdAch')}
               bordered={false}>
-              0
+              {data.lmtd || 0}
             </Card>
           </Col>
         </Row>
@@ -79,37 +222,37 @@ export const TgtVsAct = () => {
           style={{ marginTop: 15 }}>
           <Col span={5}>
             <Card
-              title='% Growth over LMTD'
+              title={t('dashboard.percanageGrowthOverLmtd')}
               bordered={false}>
-              0
+              {data.lmtdGrowthPercentage || 0}
             </Card>
           </Col>
           <Col span={5}>
             <Card
-              title='Target'
+              title={t('dashboard.target')}
               bordered={false}>
-              0
+              {data.target || 0}
             </Card>
           </Col>
           <Col span={5}>
             <Card
-              title='Balance To Do'
+              title={t('dashboard.balanceToDo')}
               bordered={false}>
-              0
+              {data.balanceToDo || 0}
             </Card>
           </Col>
           <Col span={5}>
             <Card
-              title='LYMTD Achived'
+              title={t('dashboard.lymtdAch')}
               bordered={false}>
-              0
+              {data.lmtd || 0}
             </Card>
           </Col>
           <Col span={4}>
             <Card
-              title='% Growth over LYMTD'
+              title={t('dashboard.percanageGrowthOverLymtd')}
               bordered={false}>
-              0
+              {data.lmtdGrowthPercentage || 0}
             </Card>
           </Col>
         </Row>

@@ -38,8 +38,10 @@ export const LoginForm: React.FC<LoginFormIProps> = ({
     try {
       const response: UserLoginModel = await authenticate(username, password);
       const token = response.body[0].token;
+      const loggedInUser = response.body[0];
       if (token) {
         localStorage.setItem('token', token);
+        localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
         navigate('/home');
       }
       setIsLoding(false);

@@ -18,11 +18,19 @@ Api.interceptors.request.use(
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+    } else {
+      if (navigate) {
+        navigate('/');
+        message.error('Token missing please re-login to proceed');
+      }
     }
 
     return config;
   },
   (error) => {
+    if (navigate) {
+      navigate('/');
+    }
     return Promise.reject(error);
   }
 );

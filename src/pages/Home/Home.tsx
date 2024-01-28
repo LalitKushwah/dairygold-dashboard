@@ -9,9 +9,18 @@ import { useMetrics } from '../../hooks/useMetrics';
 import { OrdersSummary } from './OrdersSummary';
 import { Stats } from './Stats';
 import { TgtVsAct } from './TgtVsAct';
+import { useNavigate } from 'react-router-dom';
 
 export const HomePage: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { entityCountsInfo, isLoading } = useMetrics();
+
+  const logoutHandler = () => {
+    localStorage.clear();
+    navigate('/');
+  };
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <NavBar activeKey='1'></NavBar>
@@ -21,10 +30,23 @@ export const HomePage: React.FC = () => {
           description={t('welcomeMsgDescription')}
           primaryBtnText={t('logoutBtnLabel')}
           primaryButtonIcon={<LogoutOutlined />}
+          primartBtnAction={logoutHandler}
         />
-        <OrdersSummary />
+        {entityCountsInfo ? (
+          <>
+            <OrdersSummary
+              entityCountsInfo={entityCountsInfo || {}}
+              isLoading={isLoading}
+            />
+          </>
+        ) : undefined}
         <TgtVsAct />
-        <Stats />
+        {entityCountsInfo ? (
+          <Stats
+            entityCountsInfo={entityCountsInfo}
+            isLoading={isLoading}
+          />
+        ) : undefined}
       </Layout>
     </Layout>
   );

@@ -5,6 +5,10 @@ import { ImageComponent } from './Image';
 import { TextComponent, TitleComponent } from './Text';
 import { FormComponent, FormItemComponent } from './Form';
 import { DividerComponent } from './Divider';
+import { TreeComponent } from './Tree';
+import { PopconfirmComponent } from './Popconfirm';
+import { ColComponent, RowComponent } from './Row';
+import { ModalComponent } from './Modal';
 
 export default {
   Input: InputComponent,
@@ -16,4 +20,9 @@ export default {
   Form: FormComponent,
   FormItem: FormItemComponent,
   Divider: DividerComponent,
+  Tree: TreeComponent,
+  Popconfirm: PopconfirmComponent,
+  Row: RowComponent,
+  Col: ColComponent,
+  Modal: ModalComponent
 };

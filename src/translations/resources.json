@@ -10,6 +10,10 @@
       "welcomeMsgDescription": "We have few things for you to look at.",
       "logoutBtnLabel": "Logout",
       "dashboard": {
+        "salesmansTitle": "Salesmans",
+        "salesManagersTitle": "Sales-Managers",
+        "categoriesTitle": "Categories",
+        "productsTitle": "Products",
         "tgtActCardTitle": "Insights - Target VS Achievement",
         "landing": "Landing",
         "ftdAch": "FTD Achieved",

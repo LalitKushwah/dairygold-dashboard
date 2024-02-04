@@ -2,6 +2,7 @@ import React from 'react';
 import Components from '../../components';
 import './Stats.css';
 import { DasboardEntityCountsResponseBody } from '../../models/DasboardEntityCountsReponseModel';
+import { useTranslation } from 'react-i18next';
 
 interface StatsCardIProps {
   title: string;
@@ -45,30 +46,31 @@ export const Stats: React.FC<StatsIProps> = ({
   entityCountsInfo,
   isLoading,
 }) => {
+  const { t } = useTranslation();
   return (
     <div className='Stats-Container'>
       <StatsCard
-        title={'Customers'}
+        title={t('dashboard.customers')}
         count={entityCountsInfo?.customerCount || 0}
         loading={isLoading}
       />
       <StatsCard
-        title={'Salesmans'}
+        title={t('dashboard.salesmansTitle')}
         count={entityCountsInfo?.salesmanCount || 0}
         loading={isLoading}
       />
       <StatsCard
-        title='Sales-Managers'
+        title={t('dashboard.salesManagerTitle')}
         count={entityCountsInfo?.salesmanagerCount || 0}
         loading={isLoading}
       />
       <StatsCard
-        title='Categories'
+        title={t('dashboard.categoriesTitle')}
         count={entityCountsInfo?.parentCategoryCount || 0}
         loading={isLoading}
       />
       <StatsCard
-        title='Products'
+        title={t('dashboard.productsTitle')}
         count={entityCountsInfo?.productCount || 0}
         loading={isLoading}
       />

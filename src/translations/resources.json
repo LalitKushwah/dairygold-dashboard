@@ -20,7 +20,10 @@
         "taget": "Target",
         "balanceToDo": "Balance To Do",
         "lymtdAch": "LYMTD Achived",
-        "percanageGrowthOverLymtd":"% Growth over LYMTD"
+        "percanageGrowthOverLymtd": "% Growth over LYMTD"
+      },
+      "orders": {
+        "searchByInputPlaceholder": "Search by Order Id or Customer name"
       }
     }
   }

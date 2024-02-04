@@ -1,0 +1,16 @@
+.Orders-Data-Container {
+  padding: 10px;
+}
+.Order-Filters-Container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px;
+}
+.Order-Filters-Input {
+  width: 40%;
+  margin-right: 20px;
+}
+.Order-Filters-Select {
+  width: 200px;
+  margin-right: 20px;
+}

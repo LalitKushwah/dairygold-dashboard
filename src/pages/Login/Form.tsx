@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Components from '../../components';
 import { FormInstance } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { authenticate } from '../../services/user';
+import { authenticate } from '../../services/User';
 import { useNavigate } from 'react-router-dom';
 import { UserLoginModel } from '../../models/UserLoginModel';
 

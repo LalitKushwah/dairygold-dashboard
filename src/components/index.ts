@@ -5,6 +5,8 @@ import { ImageComponent } from './Image';
 import { TextComponent, TitleComponent } from './Text';
 import { FormComponent, FormItemComponent } from './Form';
 import { DividerComponent } from './Divider';
+import { TableComponent } from './Table';
+import { SelectComponent } from './Select';
 
 export default {
   Input: InputComponent,
@@ -16,4 +18,6 @@ export default {
   Form: FormComponent,
   FormItem: FormItemComponent,
   Divider: DividerComponent,
+  Table: TableComponent,
+  Select: SelectComponent
 };

@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-describe('Delete order successfully', { testIsolation: false }, () => {
+describe('Delete order successfully', () => {
 	const SCHEDULER_PAGE_URL = `${Cypress.env('BASE_URL')}/schedulers`;
 	before(() => {
 		cy.login();

@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-describe('Scheduler', { testIsolation: false }, () => {
+describe('Scheduler', () => {
 	const schedulers = [
 		{
 			name: 'Update Products',

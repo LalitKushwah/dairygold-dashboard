@@ -1,10 +1,9 @@
-import { defineConfig } from "cypress";
+import { defineConfig } from 'cypress';
 
 export default defineConfig({
-  chromeWebSecurity: false,
   e2e: {
-    setupNodeEvents(on, config) {
-    },
+    testIsolation: false,
+    setupNodeEvents(on, config) {},
   },
   env: {
     USERNAME: 'tausif',

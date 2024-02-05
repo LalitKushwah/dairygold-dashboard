@@ -7,26 +7,43 @@ import { HomePage } from './pages/Home/Home';
 import { setNavigate } from './services/Api';
 import { OrdersPage } from './pages/Orders/Order';
 import SchedulersPage from './pages/Schedulers/Schedulers';
+import RoutePermissionwithRBAC from './common/Permission/RoutePermission';
+import { UserRole } from './utils/common';
 
 const Root = () => {
-	const navigate = useNavigate();
-	setNavigate(navigate);
-	return (
-		<Routes>
-			<Route path='/' element={<LoginPage />} />
-			<Route path='/home' element={<HomePage />} />
-			<Route path='/orders' element={<OrdersPage />} />
-			<Route path='/schedulers' element={<SchedulersPage />} />
-		</Routes>
-	);
+  const navigate = useNavigate();
+  setNavigate(navigate);
+  const SchedulersRoute = RoutePermissionwithRBAC([UserRole.ADMINHO])(
+    SchedulersPage
+  );
+  return (
+    <Routes>
+      <Route
+        path='/'
+        element={<LoginPage />}
+      />
+      <Route
+        path='/home'
+        element={<HomePage />}
+      />
+      <Route
+        path='/orders'
+        element={<OrdersPage />}
+      />
+      <Route
+        path='/schedulers'
+        element={<SchedulersRoute />}
+      />
+    </Routes>
+  );
 };
 
 const App = () => {
-	return (
-		<BrowserRouter>
-			<Root />
-		</BrowserRouter>
-	);
+  return (
+    <BrowserRouter>
+      <Root />
+    </BrowserRouter>
+  );
 };
 
 export default App;

@@ -10,6 +10,7 @@ import { OrdersSummary } from './OrdersSummary';
 import { Stats } from './Stats';
 import { TgtVsAct } from './TgtVsAct';
 import { useNavigate } from 'react-router-dom';
+import { logoutButtonId } from './util';
 
 export const HomePage: React.FC = () => {
   const { t } = useTranslation();
@@ -31,7 +32,7 @@ export const HomePage: React.FC = () => {
           primaryBtnText={t('logoutBtnLabel')}
           primaryButtonIcon={<LogoutOutlined />}
           primartBtnAction={logoutHandler}
-          primaryBtnId={'logout'}
+          primaryBtnId={logoutButtonId}
         />
         {entityCountsInfo ? (
           <>

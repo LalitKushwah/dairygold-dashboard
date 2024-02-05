@@ -49,3 +49,5 @@ export const calculateTgtAchData = (
   }
   return tempData;
 };
+
+export const logoutButtonId = 'logout';

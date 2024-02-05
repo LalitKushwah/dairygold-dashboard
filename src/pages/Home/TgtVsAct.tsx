@@ -12,8 +12,8 @@ import {
   getAssociatedSalesmansList,
   getSalesmansList,
   getUserDashboard,
-} from '../../services/user';
-import { fetchParentCategories } from '../../services/category';
+} from '../../services/User';
+import { fetchParentCategories } from '../../services/Category';
 import { calculateTgtAchData } from './util';
 import { useTranslation } from 'react-i18next';
 import {
@@ -81,8 +81,8 @@ export const TgtVsAct = () => {
         const userStruct = getEmptyUserStructure();
         salesmanDataList.unshift({
           ...userStruct,
-          label: loggedInUser?.name,
-          value: externalId,
+          label: loggedInUser?.name || '',
+          value: externalId || '',
           name: loggedInUser?.name || '',
           externalId: externalId || '',
         });

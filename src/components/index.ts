@@ -9,6 +9,8 @@ import { TreeComponent } from './Tree';
 import { PopconfirmComponent } from './Popconfirm';
 import { ColComponent, RowComponent } from './Row';
 import { ModalComponent } from './Modal';
+import { TableComponent } from './Table';
+import { SelectComponent } from './Select';
 
 export default {
   Input: InputComponent,
@@ -24,5 +26,7 @@ export default {
   Popconfirm: PopconfirmComponent,
   Row: RowComponent,
   Col: ColComponent,
-  Modal: ModalComponent
+  Modal: ModalComponent,
+  Table: TableComponent,
+  Select: SelectComponent,
 };

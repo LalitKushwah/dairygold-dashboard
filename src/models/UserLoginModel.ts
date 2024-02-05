@@ -18,8 +18,8 @@ export interface UserData {
   token: string;
   channel?: string;
   // below values are for dropdown used in home page
-  label?: string;
-  value?: string;
+  label: string;
+  value: string;
 }
 
 export const getEmptyUserStructure = (): UserData => {

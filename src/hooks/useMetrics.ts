@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getDashboardData } from '../services/user';
+import { getDashboardData } from '../services/User';
 import {
   DasboardEntityCountsReponseModel,
   DasboardEntityCountsResponseBody,

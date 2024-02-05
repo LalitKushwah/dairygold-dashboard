@@ -1,21 +1,14 @@
-import React, { ReactNode } from 'react';
-import { useMetrics } from '../../hooks/useMetrics';
+import React from 'react';
 import Components from '../../components';
 import './Stats.css';
-import {
-  ApartmentOutlined,
-  MobileOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from '@ant-design/icons';
 import { DasboardEntityCountsResponseBody } from '../../models/DasboardEntityCountsReponseModel';
+import { useTranslation } from 'react-i18next';
 
 interface StatsCardIProps {
   title: string;
   count: number;
   bgColor?: string;
   loading: boolean;
-  IconComponent: any;
 }
 
 const StatsCard: React.FC<StatsCardIProps> = ({
@@ -23,7 +16,6 @@ const StatsCard: React.FC<StatsCardIProps> = ({
   count,
   bgColor,
   loading,
-  IconComponent,
 }) => {
   return (
     <Components.Card
@@ -35,7 +27,6 @@ const StatsCard: React.FC<StatsCardIProps> = ({
       loading={loading}>
       <div className='Stats-CardItem'>
         <div>
-          {/* {IconComponent} */}
           <Components.Title level={1}>
             {count.toLocaleString()}
           </Components.Title>
@@ -55,37 +46,33 @@ export const Stats: React.FC<StatsIProps> = ({
   entityCountsInfo,
   isLoading,
 }) => {
+  const { t } = useTranslation();
   return (
     <div className='Stats-Container'>
       <StatsCard
-        title={'Customers'}
+        title={t('dashboard.customers')}
         count={entityCountsInfo?.customerCount || 0}
         loading={isLoading}
-        IconComponent={<UserOutlined />}
       />
       <StatsCard
-        title={'Salesmans'}
+        title={t('dashboard.salesmansTitle')}
         count={entityCountsInfo?.salesmanCount || 0}
         loading={isLoading}
-        IconComponent={<UserOutlined />}
       />
       <StatsCard
-        title='Sales-Managers'
+        title={t('dashboard.salesManagerTitle')}
         count={entityCountsInfo?.salesmanagerCount || 0}
         loading={isLoading}
-        IconComponent={<TeamOutlined />}
       />
       <StatsCard
-        title='Categories'
+        title={t('dashboard.categoriesTitle')}
         count={entityCountsInfo?.parentCategoryCount || 0}
         loading={isLoading}
-        IconComponent={<ApartmentOutlined />}
       />
       <StatsCard
-        title='Products'
+        title={t('dashboard.productsTitle')}
         count={entityCountsInfo?.productCount || 0}
         loading={isLoading}
-        IconComponent={<MobileOutlined />}
       />
     </div>
   );

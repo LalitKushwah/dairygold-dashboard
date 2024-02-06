@@ -26,6 +26,7 @@
         "lymtdAch": "LYMTD Achived",
         "percanageGrowthOverLymtd": "% Growth over LYMTD"
       },
+<<<<
       "schedulers": {
         "successMsg": "Scheduler triggered successfully",
         "orderDeleteSuccessMsg": "Order deleted successfully",
@@ -67,6 +68,8 @@
         "updateMilkCollectionInErp": "Update Milk Collection In Erp",
         "title": "Schedulers"
       },
+====
+>>>>
       "orders": {
         "searchByInputPlaceholder": "Search by Order Id or Customer name"
       }

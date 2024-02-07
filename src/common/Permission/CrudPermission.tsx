@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { crudPermissions, getLoggedInUser } from '../../utils/common';
+import {
+  CrudPermission,
+  crudPermissions,
+  getLoggedInUser,
+} from '../../utils/common';
 
 const CrudPermissionwithRBAC = <P extends object>(
   WrappedComponent: React.ComponentType<P>,
   permission: string
 ) => {
   const WithRBAC: React.FC<P> = (props) => {
-    const userRole = getLoggedInUser().userType;
+    const userRole = getLoggedInUser()?.userType;
     const [isDisabled, setIsDisabled] = useState(true);
-    useEffect(() => {
-      const checkAccesss = async () => {
-        if (
-          userRole ||
-          (crudPermissions[userRole] &&
-            crudPermissions[userRole].includes(permission))
-        ) {
-          setIsDisabled(false);
-        }
-      };
-      checkAccesss();
-    }, [userRole, permission]);
-    // Pass the hasPermission function as a prop to the wrapped component
+    console.log(userRole);
+
+    if (
+      userRole &&
+      crudPermissions[userRole as keyof CrudPermission]?.includes(permission) &&
+      isDisabled
+    ) {
+      setIsDisabled(false);
+    }
     return (
       <WrappedComponent
         disabled={isDisabled}

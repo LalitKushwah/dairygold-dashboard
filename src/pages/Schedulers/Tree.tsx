@@ -25,7 +25,7 @@ const SchedulersTree: React.FC<SchedulerTreeProps> = ({
   showModal,
 }) => {
   const { t } = useTranslation();
-  const ButtonWithRBAC = CrudPermissionwithRBAC(Components.Button, 'DELETE');
+  const ButtonWithRBAC = CrudPermissionwithRBAC(Components.Button, 'delete');
   const confirmPropsValue: any = handleConfirmPropsTranslation(confirmProps);
   const LeftSideTreeData: TreeDataNode[] = [
     {

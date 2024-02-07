@@ -36,7 +36,7 @@ export enum CrudOperation {
 }
 
 // Define CRUD permissions for user roles
-export const crudPermissions: any = {
+export const crudPermissions: CrudPermission = {
   [UserRole.ADMINHO]: [
     CrudOperation.CREATE,
     CrudOperation.READ,
@@ -47,10 +47,20 @@ export const crudPermissions: any = {
     CrudOperation.CREATE,
     CrudOperation.READ,
     CrudOperation.UPDATE,
-    CrudOperation.DELETE,
   ],
   [UserRole.SALESMAN]: [],
   [UserRole.SALESMANAGER]: [],
 };
+
+export interface CrudPermission {
+  ADMIN?: string[];
+  ADMINHO?: string[];
+  SALESMAN?: string[];
+  SALESMANAGER?: string[];
+  CUSTOMER?: string[];
+  MCE?: string[];
+  MCM?: string[];
+  PRICE_EXECUTIVE?: string[];
+}
 
 export const loggedInUser = 'loggedInUser';

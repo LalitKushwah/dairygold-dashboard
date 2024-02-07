@@ -10,8 +10,6 @@ import { TreeComponent } from './Tree';
 import { PopconfirmComponent } from './Popconfirm';
 import { ColComponent, RowComponent } from './Row';
 import { ModalComponent } from './Modal';
-
-
 import { TableComponent } from './Table';
 import { SelectComponent } from './Select';
 
@@ -33,8 +31,4 @@ export default {
   Modal: ModalComponent,
   Table: TableComponent,
   Select: SelectComponent,
-
-  Table: TableComponent,
-  Select: SelectComponent
-
 };

@@ -32,7 +32,7 @@ const Root = () => {
       />
       <Route
         path='/schedulers'
-        element={<SchedulersRoute />}
+        element={<SchedulersPage />}
       />
     </Routes>
   );

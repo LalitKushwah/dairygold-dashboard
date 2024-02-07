@@ -69,7 +69,7 @@ const SchedulersPage: React.FC = () => {
   };
 
   return (
-    <Layout className='h-100'>
+    <Layout className='SchedulersPage-Parent-Container'>
       <NavBar activeKey={'8'} />
       <Layout>
         <PageHeader title={t('schedulers.title')}></PageHeader>

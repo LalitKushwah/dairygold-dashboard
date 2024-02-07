@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import NavBar from '../../common/NavBar/NavBar';
 import { Layout } from 'antd';
 import { PageHeader } from '../../common/PageHeader/PageHeader';
 import { LogoutOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
-import { PieChart } from '../../common/graphs/PieChart';
 import { useMetrics } from '../../hooks/useMetrics';
 import { OrdersSummary } from './OrdersSummary';
 import { Stats } from './Stats';

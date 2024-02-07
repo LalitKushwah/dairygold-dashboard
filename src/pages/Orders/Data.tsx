@@ -5,6 +5,8 @@ import { Tag, Typography } from 'antd';
 import { orderStatusTagColorMapping } from './util';
 import { OrderEntity } from '../../models/OrderModel';
 import './Orders.css';
+import { useNavigate } from 'react-router-dom';
+import { formatTimestampToReadableDate } from '../../utils/common';
 
 interface OrderDataIProps {
   searchBy: string;
@@ -21,6 +23,7 @@ export const OrderData: React.FC<OrderDataIProps> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [skip, setSkip] = useState<number>(0);
   const [totalRecords, setTotalRecords] = useState<number>(0);
+  const navigate = useNavigate();
 
   const columns = [
     {
@@ -64,7 +67,13 @@ export const OrderData: React.FC<OrderDataIProps> = ({
       key: 'status',
       render: (status: string) => {
         if (status) {
-          return <Tag color={orderStatusTagColorMapping(status)}>{status}</Tag>;
+          return (
+            <Tag
+              bordered
+              color={orderStatusTagColorMapping(status)}>
+              <Components.Text strong>{status}</Components.Text>
+            </Tag>
+          );
         }
       },
     },
@@ -72,8 +81,8 @@ export const OrderData: React.FC<OrderDataIProps> = ({
       title: 'Date',
       dataIndex: 'lastUpdatedAt',
       key: 'date',
-      render: (lastUpdatedAt: string) => (
-        <Text>{new Date(lastUpdatedAt).toLocaleDateString()}</Text>
+      render: (lastUpdatedAt: number) => (
+        <Text>{formatTimestampToReadableDate(lastUpdatedAt)}</Text>
       ),
     },
   ];
@@ -136,6 +145,10 @@ export const OrderData: React.FC<OrderDataIProps> = ({
         dataSource={ordersList} // Add keys to each row
         loading={isLoading}
         pagination={false}
+        onRow={(record: OrderEntity) => ({
+          onClick: () => navigate(`/order/${record._id}`),
+        })}
+        rowClassName='Order-Data-Row'
         paginationProps={{
           defaultCurrent: 1,
           total: totalRecords,

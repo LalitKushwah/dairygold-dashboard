@@ -54,10 +54,12 @@ export const OrderFilters: React.FC<OrderFiltersIProps> = ({
       <Components.Input
         className='Order-Filters-Input'
         value={searchByValue}
+        size='large'
         onChange={onSearchByChangeHandler}
         placeholder={t('orders.searchByInputPlaceholder')}></Components.Input>
       {salesmanList && salesmanList.length ? (
         <Components.Select
+          size='large'
           defaultValue={'All'}
           className='Order-Filters-Select'
           options={salesmanList || []}
@@ -65,6 +67,7 @@ export const OrderFilters: React.FC<OrderFiltersIProps> = ({
         />
       ) : undefined}
       <Components.Select
+        size='large'
         defaultValue={'All'}
         className='Order-Filters-Select'
         options={orderStatusOptions}

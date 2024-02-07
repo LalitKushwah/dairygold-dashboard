@@ -5,9 +5,12 @@ export const TableComponent: React.FC<any> = (props) => {
   const { paginationProps, ...rest } = props;
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'flex-end', margin: 10 }}>
-        <Pagination {...paginationProps}></Pagination>
-      </div>
+      {paginationProps ? (
+        <div
+          style={{ display: 'flex', justifyContent: 'flex-end', margin: 10 }}>
+          <Pagination {...paginationProps}></Pagination>
+        </div>
+      ) : undefined}
       <Table {...rest} />
     </>
   );

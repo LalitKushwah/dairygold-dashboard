@@ -9,6 +9,11 @@
       "welcomeMsg": "Hello",
       "welcomeMsgDescription": "We have few things for you to look at.",
       "logoutBtnLabel": "Logout",
+      "date": "Date",
+      "customer": "Customer",
+      "salesman": "Salesman",
+      "province":"Province",
+      "products":"Products",
       "dashboard": {
         "salesmansTitle": "Salesmans",
         "salesManagersTitle": "Sales-Managers",
@@ -27,7 +32,10 @@
         "percanageGrowthOverLymtd": "% Growth over LYMTD"
       },
       "orders": {
-        "searchByInputPlaceholder": "Search by Order Id or Customer name"
+        "searchByInputPlaceholder": "Search by Order Id or Customer name",
+        "goToOrdersPageLabel": "Go to Orders Page",
+        "orderTotalLabel":"Order Total",
+        "totalNetWeight":"Total Net Weight"
       }
     }
   }

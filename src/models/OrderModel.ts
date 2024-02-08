@@ -16,4 +16,5 @@ export interface OrderEntity {
   userDetail: UserData;
   userId: string;
   warehouseCode: string;
+  _id: string;
 }

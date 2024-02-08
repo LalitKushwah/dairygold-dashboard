@@ -9,6 +9,8 @@ import { OrdersPage } from './pages/Orders/Order';
 import SchedulersPage from './pages/Schedulers/Schedulers';
 import RoutePermissionwithRBAC from './common/Permission/RoutePermission';
 import { UserRole } from './utils/common';
+import { OrdersPage } from './pages/Orders/Orders';
+import { OrderDetail } from './pages/OrderDetail/OrderDetail';
 
 const Root = () => {
   const navigate = useNavigate();
@@ -33,6 +35,8 @@ const Root = () => {
       <Route
         path='/schedulers'
         element={<SchedulersPage />}
+        path='/order/:id'
+        element={<OrderDetail />}
       />
     </Routes>
   );

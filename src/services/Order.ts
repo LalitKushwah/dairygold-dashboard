@@ -17,3 +17,13 @@ export const fetchOrders = (query: {
     throw new Error();
   }
 };
+
+export const fetchOrderDetail = (id: string) => {
+  if (!id) return;
+  const END_POINT = `/order/detail/${id}`;
+  try {
+    return Api(END_POINT);
+  } catch (ex) {
+    throw new Error();
+  }
+};

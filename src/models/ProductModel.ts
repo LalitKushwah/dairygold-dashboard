@@ -8,7 +8,7 @@ export interface ProductModel {
   productDetail: ProductDetail;
 }
 
-interface ProductDetail {
+export interface ProductDetail {
   _id: string;
   name: string;
   price: number;

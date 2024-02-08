@@ -19,7 +19,7 @@ export const OrdersPage: React.FC = () => {
     setSelectedOrderStatusFilter(value);
   };
 
-  const onSearchByChangeHandler = (e: {target: {value: string}}) => {
+  const onSearchByChangeHandler = (e: { target: { value: string } }) => {
     setSearchBy(e.target.value);
   };
 

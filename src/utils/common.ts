@@ -63,4 +63,7 @@ export interface CrudPermission {
   PRICE_EXECUTIVE?: string[];
 }
 
-export const loggedInUser = 'loggedInUser';
+export const loggedInUser = 'loggedInUser
+export const formatTimestampToReadableDate = (timestamp: number) => {
+  return new Date(timestamp).toLocaleDateString();
+};

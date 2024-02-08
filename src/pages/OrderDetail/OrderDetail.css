@@ -1,0 +1,14 @@
+.OrderDetail-Page-Container {
+  min-height: 100vh;
+}
+
+.OrderDetail-Container {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+.OrderDetail-Summary-Card {
+  flex: 1;
+  margin-right: 10px;
+  height: 270px;
+}

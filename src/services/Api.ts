@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { message } from 'antd';
 import { NavigateFunction } from 'react-router-dom';
-const BASE_URL = 'https://order.tradekings.app:4001/dg/testing/api/';
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 let navigate: NavigateFunction | null = null;
 
 export const setNavigate = (nav: NavigateFunction) => {

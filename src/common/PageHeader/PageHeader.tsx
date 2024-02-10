@@ -14,6 +14,7 @@ interface PageHeaderIProps {
   tertiaryBtnText?: string;
   tertiaryBtnAction?: () => void;
   tertiaryButtonIcon?: ReactNode;
+  primaryBtnId?: string
 }
 
 export const PageHeader: React.FC<PageHeaderIProps> = ({
@@ -22,6 +23,7 @@ export const PageHeader: React.FC<PageHeaderIProps> = ({
   primaryBtnText,
   primartBtnAction,
   primaryButtonIcon,
+  primaryBtnId,
   secondaryBtnText,
   secondaryBtnAction,
   secondaryButtonIcon,
@@ -45,7 +47,8 @@ export const PageHeader: React.FC<PageHeaderIProps> = ({
             type='primary'
             icon={primaryButtonIcon}
             size={'large'}
-            onClick={primartBtnAction}>
+            onClick={primartBtnAction}
+            id={primaryBtnId}>
             {primaryBtnText}
           </Components.Button>
         ) : undefined}

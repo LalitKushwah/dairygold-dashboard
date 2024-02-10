@@ -5,12 +5,18 @@ import './translations/i18n';
 import LoginPage from './pages/Login/Login';
 import { HomePage } from './pages/Home/Home';
 import { setNavigate } from './services/Api';
+import SchedulersPage from './pages/Schedulers/Schedulers';
+import RoutePermissionwithRBAC from './common/Permission/RoutePermission';
+import { UserRole } from './utils/common';
 import { OrdersPage } from './pages/Orders/Orders';
 import { OrderDetail } from './pages/OrderDetail/OrderDetail';
 
 const Root = () => {
   const navigate = useNavigate();
   setNavigate(navigate);
+  const SchedulersRouteWithRBAC = RoutePermissionwithRBAC([UserRole.ADMINHO])(
+    SchedulersPage
+  );
   return (
     <Routes>
       <Route
@@ -24,6 +30,10 @@ const Root = () => {
       <Route
         path='/orders'
         element={<OrdersPage />}
+      />
+      <Route
+        path='/schedulers'
+        element={<SchedulersRouteWithRBAC />}
       />
       <Route
         path='/order/:id'

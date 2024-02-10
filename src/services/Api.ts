@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosError, AxiosInstance } from 'axios';
 import { message } from 'antd';
 import { NavigateFunction } from 'react-router-dom';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -39,14 +39,15 @@ Api.interceptors.response.use(
   (response) => {
     return response;
   },
-  (error) => {
+  (error: AxiosError<{ message: string }>) => {
     if (error.response && error.response.status === 401) {
       if (navigate) {
         navigate('/');
       }
       message.error('Token is expired/missing. Please login first.');
     }
-
+    console.log(error);
+    message.error(error.response?.data?.message || error.message);
     return Promise.reject(error);
   }
 );

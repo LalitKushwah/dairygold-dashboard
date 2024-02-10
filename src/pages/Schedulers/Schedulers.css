@@ -1,0 +1,14 @@
+.Schedulers-Container {
+  margin: 10px;
+}
+.Scheduler-button {
+  min-width: 300px;
+  max-width: 300px;
+}
+.ant-tree-node-content-wrapper {
+  font-size: 16px;
+}
+
+.SchedulersPage-Parent-Container {
+  min-height: '100vh';
+}

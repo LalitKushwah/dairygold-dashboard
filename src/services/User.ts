@@ -1,5 +1,6 @@
 import { DasboardEntityCountsReponseModel } from '../models/DasboardEntityCountsReponseModel';
-import { deepClone } from '../utils/common';
+import { AddUser, UpdateUser } from '../models/UserModel';
+import { HTTP_METHOD, deepClone } from '../utils/common';
 import { Api, ApiWithoutToken } from './Api';
 
 export const authenticate = async (userLoginId: string, password: string) => {
@@ -48,6 +49,26 @@ export const getSalesmansList = async (): Promise<any> => {
   }
 };
 
+export const getSalesmansListWithPagination = async (
+  query: any
+): Promise<any> => {
+  try {
+    const END_POINT = 'user/list/salesman';
+    return Api(END_POINT, { params: query });
+  } catch (ex) {
+    throw new Error();
+  }
+};
+
+export const getCustomersList = async (query: any): Promise<any> => {
+  try {
+    const END_POINT = 'user/list/customer';
+    return Api(END_POINT, { params: query });
+  } catch (ex) {
+    throw new Error();
+  }
+};
+
 interface AssociateSalesmanParams {
   externalId: string;
   province?: string;
@@ -66,4 +87,61 @@ export const getAssociatedSalesmansList = async (
     const END_POINT = 'user/sm/associated/salesman/';
     return Api(END_POINT, { params: clonnedQuery });
   } catch (ex) {}
+};
+
+export const getProvinceList = async (): Promise<any> => {
+  try {
+    const END_POINT = 'user/provinces/fetch';
+    return Api(END_POINT);
+  } catch (ex) {}
+};
+
+export const resetPassword = async (_id: string) => {
+  const END_POINT = `user/resetPassword/${_id}`;
+  return Api(END_POINT, {
+    method: 'POST',
+  });
+};
+
+export const deleteUser = async (_id: string) => {
+  const END_POINT = `user/delete/${_id}`;
+  return Api(END_POINT, {
+    method: 'DELETE',
+  });
+};
+
+export const updateUserStatus = async (updateStatus: {
+  externalId: string;
+  userLoginId: string;
+  isActive: boolean;
+  userType: string;
+}) => {
+  const END_POINT = 'user/status/update';
+  return Api(END_POINT, {
+    method: 'PUT',
+    data: updateStatus,
+  });
+};
+
+export const fetchProvince = async () => {
+  const END_POINT = 'user/provinces/fetch';
+  return Api(END_POINT, {
+    method: HTTP_METHOD.GET,
+  });
+};
+
+export const createUser = async (user: AddUser) => {
+  const END_POINT = 'user';
+  return Api(END_POINT, {
+    method: HTTP_METHOD.POST,
+    data: user,
+  });
+};
+
+export const updateUser = async (toBeUpdate: UpdateUser) => {
+  const END_POINT = 'user/update/user';
+  return Api(END_POINT, {
+    method: HTTP_METHOD.POST,
+    data: toBeUpdate,
+  });
 };

@@ -10,12 +10,18 @@ import RoutePermissionwithRBAC from './common/Permission/RoutePermission';
 import { UserRole } from './utils/common';
 import { OrdersPage } from './pages/Orders/Orders';
 import { OrderDetail } from './pages/OrderDetail/OrderDetail';
+import { Users } from './common/Users/Users';
+import { Customers } from './pages/Customers/Customers';
+import { SalesExecutive } from './pages/SalesExecutive/SalesExecutive';
 
 const Root = () => {
   const navigate = useNavigate();
   setNavigate(navigate);
   const SchedulersRouteWithRBAC = RoutePermissionwithRBAC([UserRole.ADMINHO])(
     SchedulersPage
+  );
+  const SalesExecutiveWithRBAC = RoutePermissionwithRBAC([UserRole.ADMINHO])(
+    SalesExecutive
   );
   return (
     <Routes>
@@ -38,6 +44,14 @@ const Root = () => {
       <Route
         path='/order/:id'
         element={<OrderDetail />}
+      />
+      <Route
+        path='/customers'
+        element={<Customers />}
+      />
+      <Route
+        path='/sales_executive'
+        element={<SalesExecutiveWithRBAC />}
       />
     </Routes>
   );

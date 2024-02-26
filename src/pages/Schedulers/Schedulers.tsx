@@ -7,7 +7,7 @@ import './Schedulers.css';
 import SchedulersTree from './Tree';
 import { SchedulersModal } from './Modal';
 import { deleteOrder, triggerScheduler } from '../../services/Schedulers';
-import { DeleteOrderFormValue } from '../../models/SchedulersModal';
+import { DeleteOrderFormValue } from '../../models/SchedulersModel';
 import { useTranslation } from 'react-i18next';
 
 const SchedulersPage: React.FC = () => {

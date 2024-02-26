@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosInstance } from 'axios';
 import { message } from 'antd';
 import { NavigateFunction } from 'react-router-dom';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
+console.log(process.env);
 let navigate: NavigateFunction | null = null;
 
 export const setNavigate = (nav: NavigateFunction) => {

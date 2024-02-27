@@ -14,7 +14,7 @@ interface PageHeaderIProps {
   tertiaryBtnText?: string;
   tertiaryBtnAction?: () => void;
   tertiaryButtonIcon?: ReactNode;
-  primaryBtnId?: string
+  primaryBtnId?: string;
 }
 
 export const PageHeader: React.FC<PageHeaderIProps> = ({

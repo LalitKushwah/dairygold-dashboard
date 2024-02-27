@@ -68,3 +68,20 @@ export const loggedInUser = 'loggedInUser';
 export const formatTimestampToReadableDate = (timestamp: number) => {
   return new Date(timestamp).toLocaleDateString();
 };
+
+export const onPageChangeHandler = (page: number) => {
+  let skip = 0;
+  if (page > 1) {
+    skip = (page - 1) * 10;
+  }
+  return skip;
+};
+
+export const formattedNumber = (number: number, fractionDigit: number) => {
+  return number.toLocaleString('en-US', {
+    minimumFractionDigits: fractionDigit,
+    maximumFractionDigits: fractionDigit,
+  });
+};
+
+export const currency = 'ZMW';

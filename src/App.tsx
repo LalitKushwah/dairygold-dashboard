@@ -10,6 +10,7 @@ import RoutePermissionwithRBAC from './common/Permission/RoutePermission';
 import { UserRole } from './utils/common';
 import { OrdersPage } from './pages/Orders/Orders';
 import { OrderDetail } from './pages/OrderDetail/OrderDetail';
+import { Products } from './pages/Products/Products';
 
 const Root = () => {
   const navigate = useNavigate();
@@ -38,6 +39,10 @@ const Root = () => {
       <Route
         path='/order/:id'
         element={<OrderDetail />}
+      />
+      <Route
+        path='/products'
+        element={<Products />}
       />
     </Routes>
   );

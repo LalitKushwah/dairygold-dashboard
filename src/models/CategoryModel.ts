@@ -4,8 +4,9 @@ export interface Category {
   type: string;
   lastUpdatedAt: number;
   parentCategoryId: string;
-  label?: string;
-  value?: string;
+  label: string;
+  value: string;
+  key?: number
 }
 
 export const getEmptyCategoryStructure = (): Category => {

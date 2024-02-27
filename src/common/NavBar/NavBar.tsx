@@ -39,7 +39,8 @@ function getItem(
 const menuItemKeyRouteMapping: any = {
   '1': '/home',
   '2': '/orders',
-  '8': '/schedulers'
+  '8': '/schedulers',
+  '6': '/products'
 };
 
 const items: MenuItem[] = [

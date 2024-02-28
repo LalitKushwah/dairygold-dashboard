@@ -138,7 +138,10 @@
         "enterExteranlId": "Enter external id",
         "channel": "Channel",
         "channleIsRequired": "Channel is required.",
-        "enterChannel": "Enter channel"
+        "enterChannel": "Enter channel",
+        "addCustomer": "Add Customer",
+        "exportCustomers": "Export Customers",
+        "addSalesman": "Add Salesman"
       }
     }
   }

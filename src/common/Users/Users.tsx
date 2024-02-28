@@ -31,9 +31,10 @@ export const Users: React.FC<UsersProps> = (props) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [user, setUser] = useState<UpdateUser>({} as UpdateUser);
   const onSearchByChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setTimeout(() => {
+    const debounceTimeout = setTimeout(() => {
       setSearchByValue(e.target.value);
     }, 2000);
+    clearTimeout(debounceTimeout);
   };
   const [isAddUserModal, setIsAddUserModal] = useState<boolean>(false);
 

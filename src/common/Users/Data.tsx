@@ -71,6 +71,44 @@ const UsersData: React.ForwardRefRenderFunction<ChildRef, UserDataProps> = (
     useState<boolean>(false);
   const { t } = useTranslation();
 
+  const onDeleteUser = async () => {
+    try {
+      setIsLoading(true);
+      const response = await deleteUser(selectedUser._id);
+      if (response?.data?.body?.ok === 1) {
+        setIsLoading(false);
+        message.success(
+          response?.data?.body?.message || t('users.userDeletedSuccessMessage')
+        );
+        getUsers();
+      }
+    } catch (error: any) {
+      setIsLoading(false);
+      message.error(
+        error?.response?.data?.body?.message || t('users.somethingWentWrong')
+      );
+    }
+  };
+
+  const onResetPassword = async () => {
+    try {
+      setIsLoading(true);
+      const response = await resetPassword(selectedUser._id);
+      if (response?.data?.body?.ok === 1) {
+        setIsLoading(false);
+        message.success(
+          response?.data?.body?.message ||
+            t('users.passwordUpdatedSuccessMessage')
+        );
+      }
+    } catch (error: any) {
+      setIsLoading(false);
+      message.error(
+        error?.response?.data?.body?.message || 'Something went wrong'
+      );
+    }
+  };
+
   const onEditUser = () => {
     const toBeUpdate: UpdateUser = {
       province: selectedUser.province,
@@ -124,7 +162,7 @@ const UsersData: React.ForwardRefRenderFunction<ChildRef, UserDataProps> = (
       key: '',
       render: (text: string, record: UserData) => (
         <Button
-        id='viewDashboard'
+          id='viewDashboard'
           onClick={() => {
             setSelectedUser(record);
             setIsOpenDashboardModal(true);
@@ -150,7 +188,7 @@ const UsersData: React.ForwardRefRenderFunction<ChildRef, UserDataProps> = (
           placement='topLeft'
           autoAdjustOverflow={true}>
           <Button
-          id='actionBtn'
+            id='actionBtn'
             onMouseEnter={() => {
               setSelectedUser(record);
             }}>
@@ -195,13 +233,13 @@ const UsersData: React.ForwardRefRenderFunction<ChildRef, UserDataProps> = (
           key='confirm'
           className='Popconfirm-Button'
           title={t('users.confirmation')}
-          description={`${t('deleteConfirmationDesc')} ${selectedUser.name}?`}
+          description={`${t('users.deleteConfirmationDesc')} ${
+            selectedUser.name
+          }?`}
           buttontext={t('users.delete')}
           okText={t('users.yes')}
           cancelText={t('users.no')}
-          onConfirm={() => {
-            onDeleteUser();
-          }}></DeleteWithRBAC>
+          onConfirm={onDeleteUser}></DeleteWithRBAC>
       ),
       danger: true,
     },
@@ -217,9 +255,7 @@ const UsersData: React.ForwardRefRenderFunction<ChildRef, UserDataProps> = (
           buttontext={t('users.resetPassword')}
           okText={t('users.yes')}
           cancelText={t('users.no')}
-          onConfirm={() => {
-            onResetPassword();
-          }}></ResetPassworWithRBAC>
+          onConfirm={onResetPassword}></ResetPassworWithRBAC>
       ),
     },
   ];
@@ -342,44 +378,6 @@ const UsersData: React.ForwardRefRenderFunction<ChildRef, UserDataProps> = (
       setSkip(0);
     } else {
       setSkip((page - 1) * 10);
-    }
-  };
-
-  const onResetPassword = async () => {
-    try {
-      setIsLoading(true);
-      const response = await resetPassword(selectedUser._id);
-      if (response?.data?.body?.ok === 1) {
-        setIsLoading(false);
-        message.success(
-          response?.data?.body?.message ||
-            t('users.passwordUpdatedSuccessMessage')
-        );
-      }
-    } catch (error: any) {
-      setIsLoading(false);
-      message.error(
-        error?.response?.data?.body?.message || 'Something went wrong'
-      );
-    }
-  };
-
-  const onDeleteUser = async () => {
-    try {
-      setIsLoading(true);
-      const response = await deleteUser(selectedUser._id);
-      if (response?.data?.body?.ok === 1) {
-        setIsLoading(false);
-        message.success(
-          response?.data?.body?.message || t('users.userDeletedSuccessMessage')
-        );
-        getUsers();
-      }
-    } catch (error: any) {
-      setIsLoading(false);
-      message.error(
-        error?.response?.data?.body?.message || t('users.somethingWentWrong')
-      );
     }
   };
 

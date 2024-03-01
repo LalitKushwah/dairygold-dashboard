@@ -30,7 +30,7 @@ export const HomePage: React.FC = () => {
           description={t('welcomeMsgDescription')}
           primaryBtnText={t('logoutBtnLabel')}
           primaryButtonIcon={<LogoutOutlined />}
-          primartBtnAction={logoutHandler}
+          primaryBtnAction={logoutHandler}
           primaryBtnId={logoutButtonId}
         />
         {entityCountsInfo ? (

@@ -39,6 +39,8 @@ function getItem(
 const menuItemKeyRouteMapping: any = {
   '1': '/home',
   '2': '/orders',
+  '3': '/customers',
+  '4': '/sales_executive',
   '8': '/schedulers'
 };
 

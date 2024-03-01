@@ -2,7 +2,7 @@ import { FormInstance } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Components from '../../components';
-import { DeleteOrderFormProps } from '../../models/SchedulersModal';
+import { DeleteOrderFormProps } from '../../models/SchedulersModel';
 
 const FIELDS_LABELS_SIZE = 5;
 

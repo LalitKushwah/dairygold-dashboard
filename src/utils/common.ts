@@ -33,15 +33,13 @@ export enum CrudOperation {
   READ = 'read',
   UPDATE = 'update',
   DELETE = 'delete',
+  ALL = 'all',
 }
 
 // Define CRUD permissions for user roles
 export const crudPermissions: CrudPermission = {
   [UserRole.ADMINHO]: [
-    CrudOperation.CREATE,
-    CrudOperation.READ,
-    CrudOperation.UPDATE,
-    CrudOperation.DELETE,
+    CrudOperation.ALL,
   ],
   [UserRole.ADMIN]: [
     CrudOperation.CREATE,
@@ -64,6 +62,7 @@ export interface CrudPermission {
 }
 
 export const loggedInUser = 'loggedInUser';
+export const LIMIT = 10;
 
 export const formatTimestampToReadableDate = (timestamp: number) => {
   return new Date(timestamp).toLocaleDateString();

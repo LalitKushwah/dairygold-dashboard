@@ -10,9 +10,9 @@ import RoutePermissionwithRBAC from './common/Permission/RoutePermission';
 import { UserRole } from './utils/common';
 import { OrdersPage } from './pages/Orders/Orders';
 import { OrderDetail } from './pages/OrderDetail/OrderDetail';
-import { Users } from './common/Users/Users';
 import { Customers } from './pages/Customers/Customers';
 import { SalesExecutive } from './pages/SalesExecutive/SalesExecutive';
+import ProductCategories from './pages/ProductCategories/ProductCategories';
 
 const Root = () => {
   const navigate = useNavigate();
@@ -52,6 +52,10 @@ const Root = () => {
       <Route
         path='/sales_executive'
         element={<SalesExecutiveWithRBAC />}
+      />
+      <Route
+        path='/product_categories'
+        element={<ProductCategories />}
       />
     </Routes>
   );

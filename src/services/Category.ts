@@ -6,6 +6,7 @@ interface ParentCategoryaParams {
   limit: number;
   requestType?: string;
   isCapturingFlow?: boolean;
+  search?: string;
 }
 
 export const fetchParentCategories = (

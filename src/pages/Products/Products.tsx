@@ -62,7 +62,7 @@ export const Products: React.FC<ProductsProps> = () => {
           primaryButtonIcon={<PlusOutlined />}
           secondaryButtonIcon={<FileExcelOutlined />}
           tertiaryButtonIcon={<EditOutlined />}
-          primartBtnAction={onAddProduct}
+          primaryBtnAction={onAddProduct}
           primaryBtnId='addProduct'></PageHeader>
         <ProductsFilter
           setIsLoading={setIsLoading}

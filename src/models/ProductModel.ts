@@ -14,7 +14,8 @@ export interface ProductModel {
   lastUpdatedAt: number;
   inventoryDetails: InventoryDetails[];
   categoryPrices: CategoryPrices[];
-  key: number
+  key: number;
+  isFocusedPack?: string | boolean;
 }
 
 export interface InventoryDetails {
@@ -30,4 +31,15 @@ export interface CategoryPrices {
   price: number;
   effectiveDate: string;
   custCategoryName: string;
+}
+
+export interface UpdateProduct {
+  productId: string;
+  name: string;
+  price: number;
+  productCode: string;
+  productSysCode: string;
+  parentCategoryId: string;
+  categoryId: string;
+  isFocusedPack: string | boolean | undefined;
 }

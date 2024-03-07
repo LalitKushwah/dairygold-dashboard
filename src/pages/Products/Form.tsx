@@ -1,30 +1,174 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Components from '../../components';
 import { useTranslation } from 'react-i18next';
-import { Form } from 'antd';
+import { Form, message } from 'antd';
 import {
   BarcodeOutlined,
   DollarCircleOutlined,
   EnvironmentOutlined,
   SolutionOutlined,
-  UserOutlined,
 } from '@ant-design/icons';
 import { Category } from '../../models/CategoryModel';
+import {
+  fetchChildCategories,
+  fetchParentCategories,
+} from '../../services/Category';
+import { ProductModel, UpdateProduct } from '../../models/ProductModel';
+import { addProduct, updateProduct } from '../../services/Products';
 
 interface ProductFormProps {
   isEdit: boolean;
   isOpen: boolean;
   onCancel: () => void;
+  setIsLoading: (isLoading: boolean) => void;
+  selectedProduct: ProductModel;
+  onFetchProducts: () => void;
+}
+interface ApiResponse {
+  data: { body: Category[]; message: string; status: number };
 }
 export const ProductForm: React.FC<ProductFormProps> = (props) => {
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [form] = Form.useForm<any>();
+  const [form] = Form.useForm<ProductModel>();
   const [parentCategories, setParentCategories] = useState<Category[]>([]);
+  const [childCategories, setChildCategories] = useState<Category[]>([]);
 
-  const onAddProduct = () => {};
+  const onFetchChildCategory = (parentCategoryId: string) => {
+    props.setIsLoading(true);
+    fetchChildCategories(parepareQuery(), parentCategoryId).then(
+      (response: ApiResponse) => {
+        props.setIsLoading(false);
+        if (response?.data?.status === 200) {
+          const categories: Category[] = response.data.body;
+          categories.map((category: Category, index: number) => {
+            category.label = category.name;
+            category.value = category._id;
+            category.key = index;
+            return category;
+          });
+          setChildCategories(categories);
+        }
+      }
+    );
+  };
 
-  const onUpdateProduct = () => {};
+  const onFetchParentCategories = () => {
+    props.setIsLoading(true);
+    fetchParentCategories(parepareQuery()).then((response: ApiResponse) => {
+      props.setIsLoading(false);
+      if (response?.data?.status === 200) {
+        let categories: Category[] = response.data.body;
+        setParentCategories(response.data.body);
+        onFetchChildCategory(categories[0]._id);
+        categories.map((category: Category, index: number) => {
+          category.label = category.name;
+          category.value = category._id;
+          category.key = index;
+          return category;
+        });
+        setParentCategories(categories);
+      }
+    });
+  };
+
+  const onChangeParentCategory = (parentCategoryId: string) => {
+    onFetchChildCategory(parentCategoryId);
+  };
+
+  const parepareQuery = () => {
+    let query = {
+      skip: 0,
+      limit: 40,
+    };
+    return query;
+  };
+
+  const onAddProduct = async () => {
+    setIsLoading(true);
+    await validateForm();
+    const formValue = handleFocusedPackValue(form.getFieldsValue());
+    formValue.priceType = 'Standard Price';
+    formValue.lastUpdatedAt = new Date().getTime();
+    delete formValue.isFocusedPack;
+    addProduct(formValue)
+      .then(
+        (response: {
+          data: { body: ProductModel[]; status: number; message: string };
+        }) => {
+          if (response?.data?.status === 200) {
+            message.success(response.data.message);
+            setIsLoading(false);
+            form.resetFields();
+            props.onCancel();
+            props.onFetchProducts();
+          }
+        }
+      )
+      .catch((error) => setIsLoading(false));
+  };
+
+  const onUpdateProduct = async () => {
+    setIsLoading(true);
+    try {
+      await form.validateFields();
+    } catch (error) {
+      setIsLoading(false);
+      return;
+    }
+    const formValue = handleFocusedPackValue(form.getFieldsValue());
+    const toBeUpdateProduct: UpdateProduct = {
+      productId: formValue.productCode,
+      name: formValue.name,
+      price: formValue.price,
+      productCode: formValue.productCode,
+      productSysCode: formValue.productSysCode,
+      parentCategoryId: formValue.parentCategoryId,
+      categoryId: formValue.categoryId,
+      isFocusedPack: formValue.isFocusedPack,
+    };
+    updateProduct(toBeUpdateProduct)
+      .then((response: any) => {
+        setIsLoading(false);
+        props.onFetchProducts();
+        props.onCancel();
+      })
+      .catch((error) => setIsLoading(false));
+  };
+
+  const validateForm = async () => {
+    try {
+      await form.validateFields();
+    } catch (error) {
+      setIsLoading(false);
+      return;
+    }
+  };
+
+  const handleFocusedPackValue = (formValue: ProductModel) => {
+    if (formValue.isFocusedPack === true) {
+      formValue.isFocusedPack = 'Y';
+    } else {
+      formValue.isFocusedPack = 'N';
+    }
+    return formValue;
+  };
+  useEffect(() => {
+    if (props.isOpen) {
+      onFetchParentCategories();
+      if (form.getFieldsValue()) {
+        form.resetFields();
+      }
+      if (props.isEdit) {
+        if (props.selectedProduct.isFocusedPack === 'Y') {
+          props.selectedProduct.isFocusedPack = true;
+        } else {
+          props.selectedProduct.isFocusedPack = false;
+        }
+        form.setFieldsValue(props.selectedProduct);
+      }
+    }
+  }, [props.isOpen]);
   return (
     <Components.Modal
       title={
@@ -73,10 +217,12 @@ export const ProductForm: React.FC<ProductFormProps> = (props) => {
                 placeholder={t('products.selectParentCategory')}
                 size='middle'
                 options={parentCategories}
-                data-testid='form-parent-category-list'
+                data-testid='formParentCategoryDropdown'
+                id='parentDropdown'
                 filterOption={(input, option: any) =>
                   option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }
+                onChange={onChangeParentCategory}
               />
             </Components.FormItem>
           </Components.Col>
@@ -85,7 +231,7 @@ export const ProductForm: React.FC<ProductFormProps> = (props) => {
               {t('products.childCategory')}
             </Components.Title>
             <Components.FormItem
-              name='productCategoryId'
+              name='categoryId'
               rules={[
                 {
                   required: true,
@@ -97,8 +243,8 @@ export const ProductForm: React.FC<ProductFormProps> = (props) => {
                 suffixIcon={<EnvironmentOutlined />}
                 placeholder={t('products.selectChildCategory')}
                 size='middle'
-                options={parentCategories}
-                data-testid='form-child-category-list'
+                options={childCategories}
+                data-testid='formChildCategoryDropdown'
                 filterOption={(input, option: any) =>
                   option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0
                 }
@@ -178,6 +324,7 @@ export const ProductForm: React.FC<ProductFormProps> = (props) => {
                 { required: true, message: t('products.priceIsRequired') },
               ]}>
               <Components.Input
+                type='number'
                 prefix={<DollarCircleOutlined />}
                 placeholder={t('products.enterPrice')}
                 size='middle'
@@ -220,6 +367,7 @@ export const ProductForm: React.FC<ProductFormProps> = (props) => {
                 },
               ]}>
               <Components.Input
+                type='number'
                 prefix={<SolutionOutlined />}
                 placeholder={t('products.enterNetWeight')}
                 size='middle'
@@ -248,6 +396,7 @@ export const ProductForm: React.FC<ProductFormProps> = (props) => {
                 placeholder={t('products.enterCurrentCaseSize')}
                 size='middle'
                 name='currentCaseSize'
+                type='number'
               />
             </Components.FormItem>
           </Components.Col>
@@ -276,17 +425,7 @@ export const ProductForm: React.FC<ProductFormProps> = (props) => {
               {t('products.focusedPack')}
             </Components.Title>
             <Components.FormItem name='isFocusedPack'>
-              <Components.Select
-                showSearch={true}
-                suffixIcon={<UserOutlined />}
-                placeholder={t('products.selectFocusedPack')}
-                size='middle'
-                options={parentCategories}
-                data-testid='form-parent-category-list'
-                filterOption={(input, option: any) =>
-                  option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }
-              />
+              <Components.Switch data-testid='formFocusedPackToggleSwitch'></Components.Switch>
             </Components.FormItem>
           </Components.Col>
         </Components.Row>

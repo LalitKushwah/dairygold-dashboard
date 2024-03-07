@@ -30,6 +30,7 @@ export const ProductsFilter: React.FC<ProductsFilterProps> = (props) => {
   }, []);
 
   const onChangeParentCategory = (parentCategoryId: string) => {
+    setParentCateoryDefaultValue(parentCategoryId);
     onFetchChildCategory(parentCategoryId);
   };
 
@@ -74,6 +75,11 @@ export const ProductsFilter: React.FC<ProductsFilterProps> = (props) => {
     });
   };
 
+  const onChangeChildCategory = (categoryId: string) => {
+    setChildCateoryDefaultValue(categoryId);
+    props.onChangeChildCategory(categoryId);
+  };
+
   const parepareQuery = () => {
     let query = {
       skip: 0,
@@ -88,20 +94,25 @@ export const ProductsFilter: React.FC<ProductsFilterProps> = (props) => {
         className='Products-Filters-Input'
         size='large'
         onChange={props.onSearchByChangeHandler}
-        placeholder={t('products.searchByInputPlaceholder')}></Components.Input>
+        placeholder={t('products.searchByInputPlaceholder')}
+        allowClear={true}
+        name="searchProduct"
+      />
       <Components.Select
         size='large'
         value={parentCateoryDefaultValue}
         className='Products-Filters-Select'
         options={parentCategories || []}
         onChange={onChangeParentCategory}
+        data-testid="parentCategoryDropdown"
       />
       <Components.Select
         size='large'
         value={childCateoryDefaultValue}
         className='Products-Filters-Select'
         options={childCategories || []}
-        onChange={props.onChangeChildCategory}
+        onChange={onChangeChildCategory}
+        data-testid="childCategoryDropdown"
       />
     </div>
   );

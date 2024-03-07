@@ -1,19 +1,23 @@
 import { useTranslation } from 'react-i18next';
 
-import React, { useEffect, useState } from 'react';
+import React, {
+  MutableRefObject,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import Components from '../../components';
-import { Button, Dropdown, MenuProps } from 'antd';
+import { Button, Dropdown, MenuProps, message } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import CrudPermissionwithRBAC from '../../common/Permission/CrudPermission';
 import {
   CrudOperation,
-  crudPermissions,
   currency,
   formattedNumber,
   onPageChangeHandler,
 } from '../../utils/common';
 import { ProductModel } from '../../models/ProductModel';
-import { fetchProducts } from '../../services/Products';
+import { deleteProduct, fetchProducts } from '../../services/Products';
 
 interface ProductsDataProps {
   categoryId: string;
@@ -21,6 +25,13 @@ interface ProductsDataProps {
   setIsLoading: (isLoading: boolean) => void;
   isLoading: boolean;
   setIsOpenAddEditModal: (isOpen: boolean) => void;
+  setIsEdit: (idEdit: boolean) => void;
+  setSelectedProduct: (product: ProductModel) => void;
+  selectedProduct: ProductModel;
+  ref: MutableRefObject<ChildRef>;
+}
+interface ChildRef {
+  onFetchProducts: () => void;
 }
 interface ApiResponse {
   data: {
@@ -29,7 +40,10 @@ interface ApiResponse {
     status: number;
   };
 }
-export const ProductsData: React.FC<ProductsDataProps> = (props) => {
+const ProductsData: React.ForwardRefRenderFunction<
+  ChildRef,
+  ProductsDataProps
+> = (props, ref) => {
   const ActionDropdownWithRBAC = CrudPermissionwithRBAC(
     Dropdown,
     CrudOperation.CREATE
@@ -42,13 +56,32 @@ export const ProductsData: React.FC<ProductsDataProps> = (props) => {
     Components.Popconfirm,
     CrudOperation.DELETE
   );
-  const [selectedProduct, setSelectedProduct] = useState<ProductModel>(
-    {} as ProductModel
-  );
+
   const [products, setProducts] = useState<ProductModel[]>([]);
   const [totalRecords, setTotalRecords] = useState<number>(0);
   const [skip, setSkip] = useState<number>(0);
   const { t } = useTranslation();
+
+  const onEditProduct = () => {
+    props.setIsEdit(true);
+    props.setIsOpenAddEditModal(true);
+  };
+  const onDeleteProduct = () => {
+    deleteProduct(props?.selectedProduct?._id).then(
+      (response: {
+        data: { body: { n: number; ok: number }; status: number };
+      }) => {
+        if (response?.data?.body?.n === 1) {
+          message.success('Product deleted successfully.');
+          onFetchProducts();
+        }
+      }
+    );
+  };
+
+  useImperativeHandle(ref, () => ({
+    onFetchProducts,
+  }));
 
   let columns = [
     {
@@ -105,7 +138,7 @@ export const ProductsData: React.FC<ProductsDataProps> = (props) => {
           <Button
             id='actionBtn'
             onMouseEnter={() => {
-              setSelectedProduct(record);
+              props.setSelectedProduct(record);
             }}>
             <EditOutlined />
           </Button>
@@ -117,9 +150,7 @@ export const ProductsData: React.FC<ProductsDataProps> = (props) => {
     {
       key: '1',
       label: <EditWithRBAC>{t('products.edit')}</EditWithRBAC>,
-      onClick: () => {
-        onEditProduct();
-      },
+      onClick: onEditProduct,
     },
     {
       key: '2',
@@ -131,14 +162,12 @@ export const ProductsData: React.FC<ProductsDataProps> = (props) => {
           className='Popconfirm-Button'
           title={t('products.confirmation')}
           description={`${t('products.deleteConfirmationDesc')} ${
-            selectedProduct.name
+            props.selectedProduct.name
           }?`}
           buttontext={t('products.delete')}
           okText={t('products.yes')}
           cancelText={t('products.no')}
-          onConfirm={() => {
-            onDeleteProduct();
-          }}></DeleteWithRBAC>
+          onConfirm={onDeleteProduct}></DeleteWithRBAC>
       ),
       danger: true,
     },
@@ -181,11 +210,6 @@ export const ProductsData: React.FC<ProductsDataProps> = (props) => {
     return query;
   };
 
-  const onEditProduct = () => {
-    props.setIsOpenAddEditModal(true);
-  };
-  const onDeleteProduct = () => {};
-
   useEffect(() => {
     if (props.searchByValue || props.categoryId) {
       onFetchProducts();
@@ -211,3 +235,4 @@ export const ProductsData: React.FC<ProductsDataProps> = (props) => {
     </div>
   );
 };
+export default React.forwardRef(ProductsData);

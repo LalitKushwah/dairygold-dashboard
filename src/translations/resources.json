@@ -124,7 +124,10 @@
         "editProduct": "Edit Product",
         "cancel": "Cancel",
         "submit": "Submit",
-        "submitConfirmationDesc": "Are you sure to submit?"
+        "submitConfirmationDesc": "Are you sure to submit?",
+        "pageTitle": "Products", 
+        "export": "Export",
+        "uploadProducts": "Upload Products"
       }
     }
   }

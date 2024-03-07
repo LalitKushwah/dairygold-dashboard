@@ -2,7 +2,7 @@ import { SchedulersDeleteOrderForm } from './Form';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Components from '../../components';
-import { SchedulerModalProps } from '../../models/SchedulersModal';
+import { SchedulerModalProps } from '../../models/SchedulersModel';
 
 export const SchedulersModal: React.FC<SchedulerModalProps> = ({
   isModalOpen,

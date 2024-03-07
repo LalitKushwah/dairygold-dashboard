@@ -13,6 +13,7 @@ import { ModalComponent } from './Modal';
 import { TableComponent } from './Table';
 import { SelectComponent } from './Select';
 import { SwitchComponent } from './Switch';
+import { DropdownComponent } from './Dropdown';
 
 export default {
   Input: InputComponent,
@@ -33,4 +34,5 @@ export default {
   Table: TableComponent,
   Select: SelectComponent,
   Switch: SwitchComponent,
+  Dropdown: DropdownComponent,
 };

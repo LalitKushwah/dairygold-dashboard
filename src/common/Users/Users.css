@@ -1,0 +1,92 @@
+.User-Page-Container {
+  min-height: 100vh;
+}
+.Users-Data-Container {
+  margin: 10px;
+}
+.Users-Filter-Container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px;
+}
+
+.User-Filters-Input {
+  width: 40%;
+  margin-right: 20px;
+}
+.User-Filters-Select {
+  width: 200px;
+  margin-right: 20px;
+}
+
+.Dashboard-Modal-Row {
+  margin-bottom: 5px;
+  margin-top: 10px;
+}
+
+.ant-modal-title {
+  font-size: 18px;
+}
+
+.Dashboard-Modal-Wrapper-Card {
+  box-shadow: none !important;
+  .ant-card-body {
+    padding: 0px;
+    .ant-card-body {
+      text-align: center;
+      padding: 0px 5px 10px 5px;
+      h4 {
+        margin-top: 10px;
+      }
+    }
+  }
+}
+
+.ant-dropdown-menu-item {
+  .ant-btn {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0px;
+    margin: 0px;
+    height: 10px;
+    color: black;
+    background: transparent;
+  }
+}
+
+.ant-dropdown-menu-item {
+  .ant-btn:hover {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 0px;
+    margin: 0px;
+    color: black !important;
+  }
+}
+
+.ACTIVE {
+  color: green;
+}
+
+.IN-ACTIVE {
+  color: red;
+}
+
+.User-Form-Row {
+  height: 80px;
+}
+
+.Add-User-Modal {
+  .ant-modal-footer {
+    margin-top: 35px;
+  }
+}
+
+.Dashboard-Modal-Container-Modal {
+  width: 50% !important;
+}
+
+.Dashboard-Modal-Wrapper-Card-Select {
+  width: 270px;
+}

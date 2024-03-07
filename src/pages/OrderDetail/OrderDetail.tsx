@@ -95,7 +95,7 @@ export const OrderDetail = () => {
         <PageHeader
           title={'Order Details'}
           primaryBtnText={t('orders.goToOrdersPageLabel')}
-          primartBtnAction={() => navigate('/orders')}
+          primaryBtnAction={() => navigate('/orders')}
         />
         {orderDetails ? (
           <div className='OrderDetail-Container'>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  CrudOperation,
   CrudPermission,
   crudPermissions,
   getLoggedInUser,
@@ -12,11 +13,14 @@ const CrudPermissionwithRBAC = <P extends object>(
   const WithRBAC: React.FC<P> = (props) => {
     const userRole = getLoggedInUser()?.userType;
     const [isDisabled, setIsDisabled] = useState(true);
-    console.log(userRole);
-
     if (
       userRole &&
-      crudPermissions[userRole as keyof CrudPermission]?.includes(permission) &&
+      (crudPermissions[userRole as keyof CrudPermission]?.includes(
+        CrudOperation.ALL
+      ) ||
+        crudPermissions[userRole as keyof CrudPermission]?.includes(
+          permission
+        )) &&
       isDisabled
     ) {
       setIsDisabled(false);

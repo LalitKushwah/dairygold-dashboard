@@ -5,8 +5,7 @@ import { PageHeader } from '../../common/PageHeader/PageHeader';
 import Components from '../../components';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchOrderDetail } from '../../services/Order';
-import { OrderEntity } from '../../models/OrderModel';
-import { ProductDetail, ProductModel } from '../../models/ProductModel';
+import { OrderEntity, OrderItem, OrderItemDetail } from '../../models/OrderModel';
 import { orderStatusTagColorMapping } from '../Orders/util';
 import './OrderDetail.css';
 import { formatTimestampToReadableDate } from '../../utils/common';
@@ -61,7 +60,7 @@ export const OrderDetail = () => {
       title: 'Name',
       dataIndex: 'productDetail',
       key: 'productDetail',
-      render: (productDetail: ProductDetail) => {
+      render: (productDetail: OrderItemDetail) => {
         return productDetail.name;
       },
     },
@@ -79,7 +78,7 @@ export const OrderDetail = () => {
       title: 'SubTotal',
       dataIndex: 'subTotal',
       key: 'subTotal',
-      render: (_subTotal: number, record: ProductModel) =>
+      render: (_subTotal: number, record: OrderItem) =>
         record.quantity * record.price,
     },
     {

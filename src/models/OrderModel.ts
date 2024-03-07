@@ -1,11 +1,10 @@
-import { ProductModel } from './ProductModel';
 import { UserData } from './UserLoginModel';
 
 export interface OrderEntity {
   lastUpdatedAt: number;
   orderId: string;
   orderTotal: number;
-  productList: ProductModel[];
+  productList: OrderItem[];
   province: string;
   salesmanCode: string;
   salesmanName: string;
@@ -17,4 +16,22 @@ export interface OrderEntity {
   userId: string;
   warehouseCode: string;
   _id: string;
+}
+
+export interface OrderItem {
+  productId: string;
+  quantity: number;
+  price: number;
+  tkPoint: number;
+  netWeight: number;
+  parentCategoryId: string;
+  productDetail: OrderItemDetail;
+}
+
+export interface OrderItemDetail {
+  _id: string;
+  name: string;
+  price: number;
+  productCode: string;
+  productSysCode: string;
 }

@@ -10,7 +10,7 @@ import RoutePermissionwithRBAC from './common/Permission/RoutePermission';
 import { UserRole } from './utils/common';
 import { OrdersPage } from './pages/Orders/Orders';
 import { OrderDetail } from './pages/OrderDetail/OrderDetail';
-import { Users } from './common/Users/Users';
+import { Products } from './pages/Products/Products';
 import { Customers } from './pages/Customers/Customers';
 import { SalesExecutive } from './pages/SalesExecutive/SalesExecutive';
 
@@ -46,9 +46,12 @@ const Root = () => {
         element={<OrderDetail />}
       />
       <Route
-        path='/customers'
-        element={<Customers />}
+        path='/products'
+        element={<Products />}
       />
+      <Route
+        path='/customers'
+        element={<Customers />}></Route>
       <Route
         path='/sales_executive'
         element={<SalesExecutiveWithRBAC />}

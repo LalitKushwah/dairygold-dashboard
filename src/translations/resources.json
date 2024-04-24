@@ -142,6 +142,10 @@
         "addCustomer": "Add Customer",
         "exportCustomers": "Export Customers",
         "addSalesman": "Add Salesman"
+      },
+      "productCategories":{
+        "productCategoryDeletedSuccessMessage": "Product Categories deleted successfully.",
+        "somethingWentWrong": "Something went wrong"
       }
     }
   }

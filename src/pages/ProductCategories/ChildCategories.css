@@ -1,0 +1,7 @@
+.Main-Container {
+  display: flex;
+}
+.Filter-Container {
+  display: flex;
+  flex: 2;
+}

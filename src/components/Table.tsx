@@ -11,7 +11,10 @@ export const TableComponent: React.FC<any> = (props) => {
           <Pagination {...paginationProps}></Pagination>
         </div>
       ) : undefined}
-      <Table {...rest} />
+      <Table
+        {...rest}
+        size='small'
+      />
     </>
   );
 };

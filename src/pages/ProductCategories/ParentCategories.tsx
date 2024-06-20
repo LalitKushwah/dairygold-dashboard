@@ -3,7 +3,7 @@ import { fetchParentCategories } from '../../services/Category';
 import { Category } from '../../models/CategoryModel';
 import Components from '../../components';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import Filters from './Filters';
+  import Filters from './Filters';
 
 const LIMIT = 10;
 
@@ -12,6 +12,7 @@ const ParentCategories = () => {
   const [skip, setSkip] = useState<number>(0);
   const [totalRecords, setTotalRecords] = useState<number>(0);
   const [searchByName, setSearchByName] = useState<string>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onSearchValueByChangeHandler = (e: { target: { value: string } }) => {
     setSearchByName(e.target.value);
@@ -45,6 +46,7 @@ const ParentCategories = () => {
 
   const getParentCategories = async () => {
     try {
+      setIsLoading(true);
       const response = await fetchParentCategories({
         skip: skip,
         limit: LIMIT,
@@ -57,6 +59,8 @@ const ParentCategories = () => {
       }
     } catch (ex) {
       console.error(ex);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -84,6 +88,7 @@ const ParentCategories = () => {
       <Components.Table
         columns={columns}
         rowKey={'_id'}
+        loading={isLoading}        
         dataSource={parentCategories}
         pagination={false}
         paginationProps={{

@@ -43,6 +43,7 @@ const menuItemKeyRouteMapping: any = {
   '4': '/sales_executive',
   '5': '/product_categories',
   '8': '/schedulers',
+  '11': '/holidays',
 };
 
 const items: MenuItem[] = [

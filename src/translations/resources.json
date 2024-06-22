@@ -142,6 +142,10 @@
         "addCustomer": "Add Customer",
         "exportCustomers": "Export Customers",
         "addSalesman": "Add Salesman"
+      },
+      "holidays": {
+        "pageTitle": "Holidays",
+        "addHolidayBtnLabel": "Add Holiday"
       }
     }
   }

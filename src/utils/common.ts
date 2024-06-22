@@ -1,5 +1,7 @@
 import { UserData } from '../models/UserLoginModel';
 
+export const GLOBAL_DATA__FETCH_LIMIT = 10
+
 export const deepClone = (obj: Object) => {
   return JSON.parse(JSON.stringify(obj));
 };
@@ -38,9 +40,7 @@ export enum CrudOperation {
 
 // Define CRUD permissions for user roles
 export const crudPermissions: CrudPermission = {
-  [UserRole.ADMINHO]: [
-    CrudOperation.ALL,
-  ],
+  [UserRole.ADMINHO]: [CrudOperation.ALL],
   [UserRole.ADMIN]: [
     CrudOperation.CREATE,
     CrudOperation.READ,
@@ -66,4 +66,61 @@ export const LIMIT = 10;
 
 export const formatTimestampToReadableDate = (timestamp: number) => {
   return new Date(timestamp).toLocaleDateString();
+};
+
+export const getMonthNames = (withAll: boolean) => {
+  const list = [
+    {
+      label: 'January',
+      value: 'January',
+    },
+    {
+      label: 'February',
+      value: 'February',
+    },
+    {
+      label: 'March',
+      value: 'March',
+    },
+    {
+      label: 'April',
+      value: 'April',
+    },
+    {
+      label: 'May',
+      value: 'May',
+    },
+    {
+      label: 'June',
+      value: 'June',
+    },
+    {
+      label: 'July',
+      value: 'July',
+    },
+    {
+      label: 'August',
+      value: 'August',
+    },
+    {
+      label: 'September',
+      value: 'September',
+    },
+    {
+      label: 'October',
+      value: 'October',
+    },
+    {
+      label: 'November',
+      value: 'November',
+    },
+    {
+      label: 'December',
+      value: 'December',
+    },
+  ];
+  if (withAll) {
+    return [{ label: 'All', value: 'all' }, ...list];
+  }
+  return list;
 };

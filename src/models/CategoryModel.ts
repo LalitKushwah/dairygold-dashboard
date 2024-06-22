@@ -4,7 +4,7 @@ export interface Category {
   type: string;
   lastUpdatedAt: number;
   parentCategoryId: string;
-  label?: string;
+  label: string;
   value?: string;
 }
 

@@ -48,7 +48,7 @@ export const PageHeader: React.FC<PageHeaderIProps> = ({
     <div className='PageHeader-Container'>
       <div className='PageHeader-TitleContainer'>
         <div>
-          <Components.Title level={2}>{title}</Components.Title>
+          <Components.Title level={3}>{title}</Components.Title>
         </div>
         <div>
           <Components.Text>{description}</Components.Text>

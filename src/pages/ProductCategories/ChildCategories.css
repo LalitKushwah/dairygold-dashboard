@@ -1,0 +1,10 @@
+.Main-Container {
+  display: flex;
+}
+.Filter-Container {
+  display: flex;
+  flex: 2;
+}
+.ParentCategory-Select {
+  width: 150px;
+}

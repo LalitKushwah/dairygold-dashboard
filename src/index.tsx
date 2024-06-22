@@ -14,9 +14,9 @@ root.render(
       theme={{
         token: {
           // Seed Token
-          colorPrimary: '#f5b208',
+          colorPrimary: '#c48e06',
           colorTextSecondary: 'white',
-          fontSize: 14,
+          fontSize: 16,
           colorBgContainer: 'white',
         },
       }}>

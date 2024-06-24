@@ -1,0 +1,13 @@
+.Report-Container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+.Report-Card {
+  width: 500px;
+  height: 500px;
+}
+.Report-CustomerCategory-Select {
+  width: 100%;
+}

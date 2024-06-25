@@ -145,3 +145,10 @@ export const updateUser = async (toBeUpdate: UpdateUser) => {
     data: toBeUpdate,
   });
 };
+
+export const getNonCustomerList = () => {
+  const END_POINT = '/user/list/all/noncustomer';
+  return Api(END_POINT, {
+    method: HTTP_METHOD.GET,
+  });
+};

@@ -27,3 +27,20 @@ export const fetchOrderDetail = (id: string) => {
     throw new Error();
   }
 };
+
+interface IPriceCapturing {
+  fromDate: string;
+  throughDate: string;
+  externalId: string;
+  reportType?: string;
+}
+
+export const fetchPriceCapturingReport = (query: IPriceCapturing) => {
+  const END_POINT = '/order/captured/data';
+  const clonnedQuery = deepClone(query);
+  try {
+    return Api(END_POINT, { params: clonnedQuery });
+  } catch (ex) {
+    throw new Error();
+  }
+};

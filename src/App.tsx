@@ -14,6 +14,9 @@ import { Customers } from './pages/Customers/Customers';
 import { SalesExecutive } from './pages/SalesExecutive/SalesExecutive';
 import ProductCategories from './pages/ProductCategories/ProductCategories';
 import { Holidays } from './pages/Holidays/Holidays';
+import './common/Style/global.css';
+import { PriceList } from './pages/Reports/PriceList/PriceList';
+import { PriceCapturing } from './pages/Reports/PriceCapturing/PriceCapturing';
 
 const Root = () => {
   const navigate = useNavigate();
@@ -61,6 +64,14 @@ const Root = () => {
       <Route
         path='/holidays'
         element={<Holidays />}
+      />
+      <Route
+        path='report/pricelist'
+        element={<PriceList />}
+      />
+      <Route
+        path='report/price-capturing'
+        element={<PriceCapturing />}
       />
     </Routes>
   );

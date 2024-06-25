@@ -17,6 +17,10 @@ interface ChildCategoryaParams {
   search?: string;
 }
 
+interface CategoryByExecutive {
+  executiveCode: string;
+}
+
 export const fetchParentCategories = (
   query: ParentCategoryaParams
 ): Promise<any> => {
@@ -34,6 +38,16 @@ export const fetchChildCategories = (
   parentCategoryId: string
 ): Promise<any> => {
   const END_POINT = `/category/list/child/${parentCategoryId}`;
+  const parsedQuery = deepClone(query);
+  try {
+    return Api(END_POINT, { params: parsedQuery });
+  } catch (ex) {
+    throw new Error();
+  }
+};
+
+export const fetchCategoryByExecutive = (query: CategoryByExecutive) => {
+  const END_POINT = `/user/get/customer/category`;
   const parsedQuery = deepClone(query);
   try {
     return Api(END_POINT, { params: parsedQuery });

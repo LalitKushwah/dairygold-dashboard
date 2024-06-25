@@ -44,7 +44,7 @@ export const Holidays = () => {
   };
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout className='Layout-Container'>
       <NavBar activeKey='1'></NavBar>
       <Layout>
         <PageHeader

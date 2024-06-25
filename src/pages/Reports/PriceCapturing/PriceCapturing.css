@@ -1,0 +1,25 @@
+.PriceCapturing-Report-Card {
+  width: 600px;
+  height: 450px;
+}
+.PriceCaptuing-Content-Container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 350px;
+}
+
+.PriceCaptuing-Left-Container {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+
+.PriceCaptuing-Right-Container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

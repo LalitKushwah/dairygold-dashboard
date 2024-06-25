@@ -45,6 +45,7 @@ const menuItemKeyRouteMapping: any = {
   '8': '/schedulers',
   '11': '/holidays',
   '13': '/report/pricelist',
+  '14': '/report/price-capturing',
 };
 
 const items: MenuItem[] = [

@@ -1,36 +1,65 @@
 import React, { useEffect, useState } from 'react';
 import Components from '../../../components';
-import { DownloadOutlined } from '@ant-design/icons';
-import DownloadReportImg from '../../../assets/images/DownloadReport.svg';
+import { DownloadOutlined, FileExcelOutlined } from '@ant-design/icons';
+import Xslx from '../../../assets/images/Xslx.svg';
 import { deepClone, downloadPdf } from '../../../utils/common';
 import { getNonCustomerList } from '../../../services/User';
 import { DatePicker, notification } from 'antd';
 const { RangePicker } = DatePicker;
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { fetchPriceCapturingReport } from '../../../services/Order';
-import './PriceCapturing.css';
+import './GenericReportPattern.css';
+import * as XLSX from 'xlsx';
+import { downloadCheckInReport } from '../../../services/Reports';
 
 dayjs.extend(customParseFormat);
+const dateFormat = 'YYYY-MM-DD';
 
-export const DownloadReport = () => {
-  const dateFormat = 'DD/MM/YYYY';
+interface IGenericReportPattern {
+  apiFn: any;
+  reportTitle: string;
+  apiPayload: any;
+  downloadFileNamePrefix: string;
+}
 
+export const GenericReportPattern: React.FC<IGenericReportPattern> = ({
+  apiFn,
+  reportTitle,
+  apiPayload,
+  downloadFileNamePrefix,
+}) => {
   const [nonCustomersList, setNonCustomersList] = useState<any>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedNonCustomer, setSelectedNonCustomer] =
     useState<any>(undefined);
-  const [selectedReportType, setSelectedReportType] = useState<String>('All');
   const [fromDate, setFromDate] = useState(dayjs(dayjs(), dateFormat));
   const [throughDate, setThroughDate] = useState(
     dayjs(dayjs().subtract(15, 'day'), dateFormat)
   );
 
-  const reportsList = [
-    { label: 'All', value: 'All' },
-    { label: 'Price Capturing', value: 'price_capturing' },
-    { label: 'Stocking', value: 'stocking' },
-  ];
+  const downloadReport = async () => {
+    const payload: any = {
+      externalId: selectedNonCustomer,
+      fromDate: fromDate,
+      toDate: throughDate,
+    };
+    try {
+      const response: any = await apiFn(payload);
+      const data = response && response.body;
+      if (data) {
+        XLSX.writeFile(
+          data,
+          `${payload.externalId}${downloadFileNamePrefix}.xlsx`
+        );
+      } else {
+        notification.warning({
+          message: 'No data available, please contact to admin',
+        });
+      }
+    } catch (ex) {
+      console.error(ex);
+    }
+  };
 
   useEffect(() => {
     getData();
@@ -41,7 +70,7 @@ export const DownloadReport = () => {
     try {
       //TODO: need to check whether it should be hardcoded or not
       const response: any = await getNonCustomerList();
-      const list = response.data?.body || [];
+      const list = response.data?.body;
       const modifiledList: any = [{ label: 'All', value: 'All' }];
       list.map((item: any) => {
         const obj = {
@@ -51,36 +80,11 @@ export const DownloadReport = () => {
         modifiledList.push(obj);
       });
       setSelectedNonCustomer(modifiledList[0].value);
-      console.log(modifiledList);
       setNonCustomersList(modifiledList);
     } catch (ex) {
       console.error(ex);
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const downloadReport = async () => {
-    const query = {
-      externalId: selectedNonCustomer,
-      reportType: selectedReportType === 'All' ? undefined : selectedReportType,
-      fromDate,
-      throughDate,
-    };
-    try {
-      const response: any = await fetchPriceCapturingReport(deepClone(query));
-      if (response && response.body && response.body.length) {
-        downloadPdf(
-          response.data,
-          `${selectedNonCustomer}_${selectedReportType}_PriceCapturing`
-        );
-      } else {
-        notification.warning({
-          message: 'No data available, please contact to admin',
-        });
-      }
-    } catch (ex) {
-      console.error(ex);
     }
   };
 
@@ -95,8 +99,8 @@ export const DownloadReport = () => {
   return (
     <div className='Report-Container'>
       <Components.Card
-        className='PriceCapturing-Report-Card'
-        title={'Download Price Capturing Report'}
+        className='GenericReport'
+        title={reportTitle}
         styles={{
           body: {
             display: 'flex',
@@ -105,8 +109,8 @@ export const DownloadReport = () => {
             width: '100%',
           },
         }}>
-        <div className='PriceCapturing-Content-Container'>
-          <div className='PriceCapturing-Left-Container'>
+        <div className='GenericReport-Content-Container'>
+          <div className='GenericReport-Left-Container'>
             <RangePicker
               defaultValue={[throughDate, fromDate]}
               format={dateFormat}
@@ -120,14 +124,6 @@ export const DownloadReport = () => {
               options={nonCustomersList}
               onChange={(value) => setSelectedNonCustomer(value)}
             />
-            <Components.Select
-              size='large'
-              className='Report-CustomerCategory-Select'
-              value={selectedReportType}
-              options={reportsList}
-              placeholder='Select Report'
-              onChange={(value) => setSelectedReportType(value)}
-            />
             <div style={{ width: '100%' }}>
               <Components.Button
                 type='primary'
@@ -139,11 +135,11 @@ export const DownloadReport = () => {
               </Components.Button>
             </div>
           </div>
-          <div className='PriceCapturing-Right-Container'>
+          <div className='GenericReport-Right-Container'>
             <Components.Image
               preview={false}
               height={100}
-              src={DownloadReportImg}
+              src={Xslx}
               width={100}></Components.Image>
           </div>
         </div>

@@ -46,6 +46,8 @@ const menuItemKeyRouteMapping: any = {
   '11': '/holidays',
   '13': '/report/pricelist',
   '14': '/report/price-capturing',
+  '15': '/report/stocking',
+  '16': '/report/check-in',
 };
 
 const items: MenuItem[] = [

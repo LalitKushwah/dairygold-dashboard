@@ -42,3 +42,13 @@ export const downloadStockingReport = (query: CheckInQueryParams) => {
     throw new Error();
   }
 };
+
+export const downloadActivityReport = (query: CheckInQueryParams) => {
+  const END_POINT = '/user/activity/report/download';
+  const parsedQuery = deepClone(query);
+  try {
+    return Api(END_POINT, { params: parsedQuery });
+  } catch (ex) {
+    throw new Error();
+  }
+};

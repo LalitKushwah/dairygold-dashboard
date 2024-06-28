@@ -146,9 +146,11 @@ export const updateUser = async (toBeUpdate: UpdateUser) => {
   });
 };
 
-export const getNonCustomerList = () => {
-  const END_POINT = '/user/list/all/noncustomer';
-  return Api(END_POINT, {
-    method: HTTP_METHOD.GET,
-  });
+export const getNonCustomerList = (query: any = undefined) => {
+  let END_POINT = '/user/list/all/noncustomer';
+  const apiPayload: any = { method: HTTP_METHOD.GET };
+  if (query) {
+    apiPayload['params'] = query;
+  }
+  return Api(END_POINT, apiPayload);
 };

@@ -60,7 +60,7 @@ export const DownloadReport = () => {
     }
   };
 
-  const dowloadReport = async () => {
+  const downloadReport = async () => {
     const query = {
       externalId: selectedNonCustomer,
       reportType: selectedReportType === 'All' ? undefined : selectedReportType,
@@ -105,8 +105,8 @@ export const DownloadReport = () => {
             width: '100%',
           },
         }}>
-        <div className='PriceCaptuing-Content-Container'>
-          <div className='PriceCaptuing-Left-Container'>
+        <div className='PriceCapturing-Content-Container'>
+          <div className='PriceCapturing-Left-Container'>
             <RangePicker
               defaultValue={[throughDate, fromDate]}
               format={dateFormat}
@@ -134,12 +134,12 @@ export const DownloadReport = () => {
                 size='large'
                 block
                 icon={<DownloadOutlined />}
-                onClick={dowloadReport}>
+                onClick={downloadReport}>
                 Download
               </Components.Button>
             </div>
           </div>
-          <div className='PriceCaptuing-Right-Container'>
+          <div className='PriceCapturing-Right-Container'>
             <Components.Image
               preview={false}
               height={100}
